@@ -1,22 +1,29 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using ZombieWar.Core;
 
 namespace ZombieWar.Weapon
 {
     /// <summary>
-    /// Spawns pooled switch VFX (prefab) + one-shot SFX when the gun changes.
-    /// Assign PlayerUpgradeFX prefab to Switch Vfx Prefab.
+    /// Plays switch FX (particles + one-shot SFX) when the gun changes.
+    /// Assign <c>Assets/_Game/FX/PlayerUpgradeFX</c> to Switch Fx Prefab.
+    /// PlayerUpgradeFX uses playOnAwake=false — spawn goes through <see cref="PooledVfx"/> so particles restart.
     /// </summary>
     public sealed class WeaponSwitchVfx : MonoBehaviour
     {
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private ProjectileWeapon projectileWeapon;
 
-        [SerializeField] private GameObject switchVfxPrefab;
+        [Header("Switch FX")]
+        [Tooltip("Particle FX prefab (e.g. PlayerUpgradeFX). Not a plain empty GameObject.")]
+        [FormerlySerializedAs("switchVfxPrefab")]
+        [SerializeField] private GameObject switchFxPrefab;
 
         [SerializeField] private Transform spawnPoint;
+        [SerializeField] private bool parentToSpawnPoint;
         [SerializeField] private float lifeTime = 2.5f;
 
+        [Header("Switch SFX")]
         [SerializeField] private AudioClip switchClip;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] [Range(0f, 1f)] private float switchVolume = 1f;
@@ -34,6 +41,7 @@ namespace ZombieWar.Weapon
         private void OnValidate()
         {
             bindLocalDependencies();
+            lifeTime = Mathf.Max(0.1f, lifeTime);
         }
 #endif
 
@@ -62,7 +70,7 @@ namespace ZombieWar.Weapon
 
         public void PlaySwitchEffects()
         {
-            spawnSwitchVfx();
+            spawnSwitchFx();
             PlaySwitchSound();
         }
 
@@ -130,15 +138,23 @@ namespace ZombieWar.Weapon
             PlaySwitchEffects();
         }
 
-        private void spawnSwitchVfx()
+        private void spawnSwitchFx()
         {
-            if (switchVfxPrefab == null)
+            if (switchFxPrefab == null)
             {
                 return;
             }
 
             Transform anchor = resolveSpawnPoint();
-            PooledVfx.Spawn(switchVfxPrefab, anchor.position, anchor.rotation, lifeTime);
+            Transform parent = parentToSpawnPoint ? anchor : null;
+
+            // PooledVfx.Spawn + RestartParticles — required because PlayerUpgradeFX playOnAwake=false.
+            PooledVfx.Spawn(
+                switchFxPrefab,
+                anchor.position,
+                Quaternion.identity,
+                lifeTime,
+                parent);
         }
 
         private Transform resolveSpawnPoint()
@@ -148,11 +164,7 @@ namespace ZombieWar.Weapon
                 return spawnPoint;
             }
 
-            if (projectileWeapon != null && projectileWeapon.FirePoint != null)
-            {
-                return projectileWeapon.FirePoint;
-            }
-
+            // Upgrade-style FX belongs on the body, not the muzzle tip.
             return transform;
         }
     }

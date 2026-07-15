@@ -18,7 +18,8 @@ MonoBehaviour:
   - m_GUID: 14c335542d21d884981131441e443b8c
     m_Address: ZombieWar/Levels/Level2
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - LevelMap
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15f3eff39ab7f184f90c5236cf502685
     m_Address: ZombieWar/Weapons/Configs/AUG

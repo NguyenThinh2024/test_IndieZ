@@ -4,100 +4,178 @@ using UnityEngine.InputSystem;
 
 namespace ZombieWar.CameraSystem
 {
+    /// <summary>
+    /// Drives one CinemachineCamera that follows player__root.
+    /// Main Camera is owned by CinemachineBrain — edit Follow Offset / FOV on this component.
+    /// </summary>
     public sealed class GameCameraController : MonoBehaviour
     {
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private Transform followTarget;
         [SerializeField] private CinemachineCamera playerFollowCamera;
-
-        [SerializeField] private int worldOverviewPriority = 5;
         [SerializeField] private int playerFollowPriority = 10;
-        [SerializeField] private float playerZoomMin = 5f;
-        [SerializeField] private float playerZoomMax = 14f;
-        [SerializeField] private float playerZoomDefault = 8f;
-        [SerializeField] private bool enableScrollZoom = true;
+
+        [SerializeField] private Vector3 followOffset = new Vector3(0f, 8f, -6f);
+        [SerializeField] private float fieldOfView = 90f;
+        [SerializeField] private bool enableScrollZoom = false;
+        [SerializeField] private float zoomMin = 5f;
+        [SerializeField] private float zoomMax = 18f;
         [SerializeField] private float scrollZoomSpeed = 1f;
 
         private CinemachineFollow playerFollow;
-        private Vector3 defaultPlayerFollowOffset;
-        private float currentPlayerZoomDistance;
+        private CinemachineBrain cinemachineBrain;
+        private float currentZoomDistance;
         private bool isInitialized;
 
-        public float PlayerZoomDistance => currentPlayerZoomDistance;
+        public Vector3 FollowOffset => followOffset;
+        public float FieldOfView => fieldOfView;
 
         private void Awake()
         {
+            if (mainCamera == null)
+            {
+                mainCamera = Camera.main;
+            }
+
+            resolveFollowTarget();
+
+            if (mainCamera != null)
+            {
+                cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
+                if (cinemachineBrain != null)
+                {
+                    cinemachineBrain.enabled = true;
+                }
+            }
+
             cachePlayerFollow();
-            currentPlayerZoomDistance = Mathf.Clamp(playerZoomDefault, playerZoomMin, playerZoomMax);
-            applyPlayerZoom(currentPlayerZoomDistance);
-            ShowPlayerCamera();
+            currentZoomDistance = followOffset.magnitude;
+            applyCinemachineLive();
+            applyFraming();
             isInitialized = true;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
-            if (!enableScrollZoom || !isPlayerCameraActive())
+            if (!isInitialized)
             {
                 return;
             }
 
-            // Player Settings uses Input System only — do not call UnityEngine.Input.
-            float scrollDelta = readMouseScrollY();
-            if (Mathf.Approximately(scrollDelta, 0f))
+            if (enableScrollZoom)
             {
-                return;
+                float scrollDelta = readMouseScrollY();
+                if (!Mathf.Approximately(scrollDelta, 0f))
+                {
+                    AdjustZoom(scrollDelta * scrollZoomSpeed);
+                }
             }
 
-            AdjustPlayerZoom(scrollDelta * scrollZoomSpeed);
+            applyFraming();
         }
 
         public void SetPlayerTarget(Transform playerTarget)
         {
-            if (!validatePlayerCamera())
+            followTarget = playerTarget;
+            if (playerFollowCamera != null && playerTarget != null)
             {
-                return;
+                playerFollowCamera.Target.TrackingTarget = playerTarget;
             }
-
-            if (playerTarget == null)
-            {
-                return;
-            }
-
-            playerFollowCamera.Target.TrackingTarget = playerTarget;
         }
 
-        public void ShowWorldOverview()
+        public void SetFollowOffset(Vector3 offset)
         {
-            if (!validateCameras())
-            {
-                return;
-            }
+            followOffset = offset;
+            currentZoomDistance = Mathf.Max(0.01f, offset.magnitude);
+            applyFraming();
+        }
 
-            setPriorities(worldActive: true);
+        public void SetFieldOfView(float fov)
+        {
+            fieldOfView = Mathf.Clamp(fov, 10f, 120f);
+            applyFraming();
+        }
+
+        public void AdjustZoom(float delta)
+        {
+            currentZoomDistance = Mathf.Clamp(currentZoomDistance + delta, zoomMin, zoomMax);
+            Vector3 direction = followOffset.sqrMagnitude > 0.0001f
+                ? followOffset.normalized
+                : new Vector3(0f, 0.6f, -1f).normalized;
+            followOffset = direction * currentZoomDistance;
+            applyFraming();
         }
 
         public void ShowPlayerCamera()
         {
-            if (!validateCameras())
+            applyCinemachineLive();
+        }
+
+        private void resolveFollowTarget()
+        {
+            if (followTarget != null)
             {
                 return;
             }
 
-            setPriorities(worldActive: false);
-        }
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null)
+            {
+                player = GameObject.Find("player__root");
+            }
 
-        public void SetPlayerZoom(float distance)
-        {
-            if (!validatePlayerFollow())
+            if (player == null)
             {
                 return;
             }
 
-            currentPlayerZoomDistance = Mathf.Clamp(distance, playerZoomMin, playerZoomMax);
-            applyPlayerZoom(currentPlayerZoomDistance);
+            // Prefer chest target under player__root; fall back to the root itself.
+            Transform cameraTarget = player.transform.Find("PlayerCameraTarget");
+            followTarget = cameraTarget != null ? cameraTarget : player.transform;
         }
 
-        public void AdjustPlayerZoom(float delta)
+        private void applyCinemachineLive()
         {
-            SetPlayerZoom(currentPlayerZoomDistance + delta);
+            if (cinemachineBrain != null)
+            {
+                cinemachineBrain.enabled = true;
+            }
+
+            if (playerFollowCamera == null)
+            {
+                return;
+            }
+
+            playerFollowCamera.enabled = true;
+            playerFollowCamera.Priority.Enabled = true;
+            playerFollowCamera.Priority.Value = playerFollowPriority;
+
+            if (followTarget != null)
+            {
+                playerFollowCamera.Target.TrackingTarget = followTarget;
+            }
+        }
+
+        private void applyFraming()
+        {
+            if (playerFollow != null)
+            {
+                playerFollow.FollowOffset = followOffset;
+            }
+
+            if (playerFollowCamera == null)
+            {
+                return;
+            }
+
+            LensSettings lens = playerFollowCamera.Lens;
+            lens.FieldOfView = fieldOfView;
+            playerFollowCamera.Lens = lens;
+
+            if (followTarget != null)
+            {
+                playerFollowCamera.Target.TrackingTarget = followTarget;
+            }
         }
 
         private void cachePlayerFollow()
@@ -108,66 +186,6 @@ namespace ZombieWar.CameraSystem
             }
 
             playerFollow = playerFollowCamera.GetComponent<CinemachineFollow>();
-            if (playerFollow == null)
-            {
-                return;
-            }
-
-            defaultPlayerFollowOffset = playerFollow.FollowOffset;
-        }
-
-        private void applyPlayerZoom(float distance)
-        {
-            if (playerFollow == null)
-            {
-                return;
-            }
-
-            Vector3 direction = defaultPlayerFollowOffset.sqrMagnitude > 0.0001f
-                ? defaultPlayerFollowOffset.normalized
-                : new Vector3(0f, 0.6f, -1f).normalized;
-
-            playerFollow.FollowOffset = direction * distance;
-        }
-
-        private void setPriorities(bool worldActive)
-        {
-            if (worldActive)
-            {
-                playerFollowCamera.Priority.Enabled = true;
-                playerFollowCamera.Priority.Value = worldOverviewPriority;
-                return;
-            }
-
-            playerFollowCamera.Priority.Enabled = true;
-            playerFollowCamera.Priority.Value = playerFollowPriority;
-        }
-
-        private bool isPlayerCameraActive()
-        {
-            return playerFollowCamera != null
-                && playerFollowCamera.Priority.Enabled
-                && playerFollowCamera.Priority.Value >= playerFollowPriority;
-        }
-
-        private bool validateCameras()
-        {
-            if (playerFollowCamera == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool validatePlayerCamera()
-        {
-            return playerFollowCamera != null;
-        }
-
-        private bool validatePlayerFollow()
-        {
-            return playerFollow != null;
         }
 
         private static float readMouseScrollY()
@@ -178,8 +196,19 @@ namespace ZombieWar.CameraSystem
                 return 0f;
             }
 
-            // Input System scroll is often ~120 per notch; normalize to old Input-style steps.
             return mouse.scroll.ReadValue().y / 120f;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            fieldOfView = Mathf.Clamp(fieldOfView, 10f, 120f);
+            if (isInitialized)
+            {
+                applyCinemachineLive();
+                applyFraming();
+            }
+        }
+#endif
     }
 }

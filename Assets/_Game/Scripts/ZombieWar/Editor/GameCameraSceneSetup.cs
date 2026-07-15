@@ -18,30 +18,28 @@ namespace ZombieWar.EditorTools
             GameObject playerRoot = findPlayerRoot();
             if (playerRoot == null)
             {
-                Debug.LogError("[Zombie War] Player not found.");
+                Debug.LogError("[Zombie War] Player not found (player__root).");
                 return;
             }
 
-            Transform playerCameraTarget = ensureChildTarget(playerRoot.transform, "PlayerCameraTarget", new Vector3(0f, 1.35f, 0f));
-            ensureMainCamera();
+            // Keep a slight height offset under player__root for framing.
+            Transform followTarget = ensureChildTarget(playerRoot.transform, "PlayerCameraTarget", new Vector3(0f, 1.35f, 0f));
+            ensureMainCameraWithBrain();
 
-            Component worldCamera = ensureWorldCamera(
-                "CM_WorldOverview",
-                new Vector3(0f, 40f, -30f),
-                new Vector3(55f, 0f, 0f),
-                50f);
+            // Only one live camera: CM_PlayerFollow → player__root.
+            disableObject("CM_WorldOverview");
 
             Component playerCamera = ensureCinemachineRig(
                 "CM_PlayerFollow",
-                playerCameraTarget,
+                followTarget,
                 new Vector3(0f, 8f, -6f),
                 new Vector3(45f, 0f, 0f),
                 45f);
 
-            GameCameraController controller = ensureCameraController(playerCameraTarget, worldCamera, playerCamera);
+            GameCameraController controller = ensureCameraController(followTarget, playerCamera);
             Selection.activeGameObject = controller.gameObject;
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-            Debug.Log("[Zombie War] Game cameras setup completed: CM_WorldOverview + CM_PlayerFollow.");
+            Debug.Log("[Zombie War] Cinemachine follow ready: CM_PlayerFollow → player__root. Edit Follow Offset / FOV on GameCameraSystem.");
         }
 
         private static GameObject findPlayerRoot()
@@ -65,7 +63,7 @@ namespace ZombieWar.EditorTools
             return targetObject.transform;
         }
 
-        private static void ensureMainCamera()
+        private static void ensureMainCameraWithBrain()
         {
             Camera camera = Camera.main;
             GameObject cameraObject = camera != null ? camera.gameObject : null;
@@ -78,27 +76,41 @@ namespace ZombieWar.EditorTools
             }
 
             ensureComponent(cameraObject, "Unity.Cinemachine.CinemachineBrain, Unity.Cinemachine");
+            Type brainType = FindType("Unity.Cinemachine.CinemachineBrain, Unity.Cinemachine");
+            if (brainType != null)
+            {
+                Behaviour brain = cameraObject.GetComponent(brainType) as Behaviour;
+                if (brain != null)
+                {
+                    brain.enabled = true;
+                    EditorUtility.SetDirty(brain);
+                }
+            }
+
+            camera.fieldOfView = 45f;
         }
 
-        private static Component ensureWorldCamera(string objectName, Vector3 position, Vector3 eulerRotation, float fieldOfView)
+        private static void disableObject(string objectName)
         {
             GameObject cameraObject = GameObject.Find(objectName);
             if (cameraObject == null)
             {
-                cameraObject = new GameObject(objectName);
-                Undo.RegisterCreatedObjectUndo(cameraObject, "Create World Overview Camera");
+                return;
             }
 
-            cameraObject.transform.position = position;
-            cameraObject.transform.rotation = Quaternion.Euler(eulerRotation);
-
-            Component cinemachineCamera = ensureComponent(cameraObject, "Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine");
-            if (cinemachineCamera != null)
+            Type cmType = FindType("Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine");
+            if (cmType != null)
             {
-                setFieldOfView(cinemachineCamera, fieldOfView);
+                Behaviour cm = cameraObject.GetComponent(cmType) as Behaviour;
+                if (cm != null)
+                {
+                    cm.enabled = false;
+                    EditorUtility.SetDirty(cm);
+                }
             }
 
-            return cinemachineCamera;
+            cameraObject.SetActive(false);
+            EditorUtility.SetDirty(cameraObject);
         }
 
         private static Component ensureCinemachineRig(
@@ -115,11 +127,17 @@ namespace ZombieWar.EditorTools
                 Undo.RegisterCreatedObjectUndo(cameraObject, "Create Cinemachine Camera");
             }
 
+            cameraObject.SetActive(true);
             cameraObject.transform.rotation = Quaternion.Euler(eulerRotation);
 
             Component cinemachineCamera = ensureComponent(cameraObject, "Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine");
             Component follow = ensureComponent(cameraObject, "Unity.Cinemachine.CinemachineFollow, Unity.Cinemachine");
             ensureComponent(cameraObject, "Unity.Cinemachine.CinemachineRotationComposer, Unity.Cinemachine");
+
+            if (cinemachineCamera is Behaviour cmBehaviour)
+            {
+                cmBehaviour.enabled = true;
+            }
 
             if (trackingTarget != null && cinemachineCamera != null)
             {
@@ -134,6 +152,7 @@ namespace ZombieWar.EditorTools
             if (cinemachineCamera != null)
             {
                 setFieldOfView(cinemachineCamera, fieldOfView);
+                setPriority(cinemachineCamera, 10);
             }
 
             return cinemachineCamera;
@@ -141,7 +160,6 @@ namespace ZombieWar.EditorTools
 
         private static GameCameraController ensureCameraController(
             Transform playerTarget,
-            Component worldCamera,
             Component playerCamera)
         {
             GameObject controllerObject = GameObject.Find("GameCameraSystem");
@@ -158,27 +176,67 @@ namespace ZombieWar.EditorTools
             }
 
             SerializedObject controllerSo = new SerializedObject(controller);
-            SerializedProperty playerCamProp = controllerSo.FindProperty("playerFollowCamera");
-            if (playerCamProp != null)
-            {
-                playerCamProp.objectReferenceValue = playerCamera;
-            }
-
-            // Older builds had worldOverviewCamera; keep CM_WorldOverview in scene for overview shots.
-            SerializedProperty worldCamProp = controllerSo.FindProperty("worldOverviewCamera");
-            if (worldCamProp != null)
-            {
-                worldCamProp.objectReferenceValue = worldCamera;
-            }
-
+            setObject(controllerSo, "mainCamera", Camera.main);
+            setObject(controllerSo, "followTarget", playerTarget);
+            setObject(controllerSo, "playerFollowCamera", playerCamera as UnityEngine.Object);
+            setVector3(controllerSo, "followOffset", new Vector3(0f, 8f, -6f));
+            setFloat(controllerSo, "fieldOfView", 45f);
+            setBool(controllerSo, "enableScrollZoom", false);
+            setInt(controllerSo, "playerFollowPriority", 10);
             controllerSo.ApplyModifiedPropertiesWithoutUndo();
 
-            if (playerTarget != null && playerCamera != null)
+            if (playerTarget != null)
             {
                 controller.SetPlayerTarget(playerTarget);
             }
 
+            EditorUtility.SetDirty(controller);
             return controller;
+        }
+
+        private static void setObject(SerializedObject so, string property, UnityEngine.Object value)
+        {
+            SerializedProperty prop = so.FindProperty(property);
+            if (prop != null)
+            {
+                prop.objectReferenceValue = value;
+            }
+        }
+
+        private static void setBool(SerializedObject so, string property, bool value)
+        {
+            SerializedProperty prop = so.FindProperty(property);
+            if (prop != null)
+            {
+                prop.boolValue = value;
+            }
+        }
+
+        private static void setFloat(SerializedObject so, string property, float value)
+        {
+            SerializedProperty prop = so.FindProperty(property);
+            if (prop != null)
+            {
+                prop.floatValue = value;
+            }
+        }
+
+        private static void setInt(SerializedObject so, string property, int value)
+        {
+            SerializedProperty prop = so.FindProperty(property);
+            if (prop != null)
+            {
+                prop.intValue = value;
+            }
+        }
+
+        private static void setVector3(SerializedObject so, string property, Vector3 value)
+        {
+            SerializedProperty prop = so.FindProperty(property);
+            if (prop != null)
+            {
+                prop.vector3Value = value;
+            }
         }
 
         private static Component ensureComponent(GameObject targetObject, string typeName)
@@ -237,6 +295,30 @@ namespace ZombieWar.EditorTools
             if (fov != null)
             {
                 fov.floatValue = fieldOfView;
+            }
+
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void setPriority(Component cinemachineCamera, int priority)
+        {
+            SerializedObject serializedObject = new SerializedObject(cinemachineCamera);
+            SerializedProperty priorityProperty = serializedObject.FindProperty("Priority");
+            if (priorityProperty == null)
+            {
+                return;
+            }
+
+            SerializedProperty enabled = priorityProperty.FindPropertyRelative("Enabled");
+            SerializedProperty value = priorityProperty.FindPropertyRelative("Value");
+            if (enabled != null)
+            {
+                enabled.boolValue = true;
+            }
+
+            if (value != null)
+            {
+                value.intValue = priority;
             }
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();

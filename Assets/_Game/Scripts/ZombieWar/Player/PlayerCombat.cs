@@ -6,7 +6,7 @@ namespace ZombieWar.Player
     /// <summary>
     /// Faces and fires the nearest in-zone target.
     /// Joystick movement is owned by PlayerMovement; this owns combat facing.
-    /// While moving, fire only inside the forward cone. While idle, snap aim and fire.
+    /// While moving, fire only inside the forward cone. While idle / melee-close, snap aim and fire.
     /// </summary>
     public sealed class PlayerCombat : MonoBehaviour
     {
@@ -23,6 +23,9 @@ namespace ZombieWar.Player
 
         [SerializeField] [Range(1f, 180f)] private float fireFacingHalfAngleDegrees = 110f;
 
+        [Tooltip("Inside this planar distance, always snap-aim and fire (muzzle can sit past the enemy).")]
+        [SerializeField] private float closeRangeEngageDistance = 2.75f;
+
         private void Awake()
         {
             bindLocalDependencies();
@@ -32,6 +35,7 @@ namespace ZombieWar.Player
         private void OnValidate()
         {
             bindLocalDependencies();
+            closeRangeEngageDistance = Mathf.Max(0.5f, closeRangeEngageDistance);
         }
 #endif
 
@@ -71,22 +75,27 @@ namespace ZombieWar.Player
                 return;
             }
 
+            Vector3 targetPosition = target.position;
+            float planarDistance = planarDistanceTo(targetPosition);
+            bool isClose = planarDistance <= closeRangeEngageDistance;
             bool isIdle = playerMovement == null || playerMovement.MoveAmount < IdleMoveThreshold;
-            RotateToTarget(target.position, isIdle);
+            bool shouldSnapAim = isIdle || isClose;
+
+            RotateToTarget(targetPosition, shouldSnapAim);
 
             if (!autoFire || weaponController == null)
             {
                 return;
             }
 
-            // Standing still: always fire at the locked target once aim has snapped.
-            // Moving: keep the forward cone so the player does not shoot while running away.
-            if (!isIdle && !IsTargetInForwardFireCone(target.position))
+            // Cone uses move/body facing — not aimRoot after it already turned toward the enemy.
+            // Close range always fires: muzzle often sits past the enemy so cone / aim would fail.
+            if (!shouldSnapAim && !IsTargetInForwardFireCone(targetPosition))
             {
                 return;
             }
 
-            if (weaponController.TryFire(target.position, gameObject))
+            if (weaponController.TryFire(targetPosition, gameObject))
             {
                 playerAnimation?.PlayShoot();
             }
@@ -97,51 +106,58 @@ namespace ZombieWar.Player
             weaponController?.SwitchNext();
         }
 
-        private void RotateToTarget(Vector3 targetPosition, bool isIdle)
+        private void RotateToTarget(Vector3 targetPosition, bool snap)
         {
-            if (aimRoot == null)
-            {
-                return;
-            }
-
-            Vector3 direction = targetPosition - aimRoot.position;
+            Vector3 origin = aimRoot != null ? aimRoot.position : transform.position;
+            Vector3 direction = targetPosition - origin;
             direction.y = 0f;
-            if (direction.sqrMagnitude < 0.001f)
+
+            if (direction.sqrMagnitude < 0.0001f)
             {
-                return;
+                // Enemy almost under the player — keep facing, still allow fire downstream.
+                direction = resolveFireFacing();
+                if (direction.sqrMagnitude < 0.0001f)
+                {
+                    return;
+                }
             }
 
-            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
+            direction.Normalize();
 
-            // Idle: snap immediately so release-stick auto-fire is not gated by slow turn + cone.
-            if (isIdle)
+            if (aimRoot != null)
             {
-                aimRoot.rotation = targetRotation;
-                return;
+                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                if (snap)
+                {
+                    aimRoot.rotation = targetRotation;
+                }
+                else
+                {
+                    aimRoot.rotation = Quaternion.RotateTowards(
+                        aimRoot.rotation,
+                        targetRotation,
+                        aimRotationDegreesPerSecond * Time.deltaTime);
+                }
             }
 
-            aimRoot.rotation = Quaternion.RotateTowards(
-                aimRoot.rotation,
-                targetRotation,
-                aimRotationDegreesPerSecond * Time.deltaTime);
+            // Keep body facing shoot direction when snap-aiming so muzzle lines up with bullets.
+            if (snap && playerMovement != null)
+            {
+                playerMovement.FaceWorldDirection(direction, instant: true);
+            }
         }
 
         private bool IsTargetInForwardFireCone(Vector3 targetPosition)
         {
-            if (aimRoot == null)
-            {
-                return false;
-            }
-
-            Vector3 toTarget = targetPosition - aimRoot.position;
+            Vector3 origin = aimRoot != null ? aimRoot.position : transform.position;
+            Vector3 toTarget = targetPosition - origin;
             toTarget.y = 0f;
             if (toTarget.sqrMagnitude < 0.0001f)
             {
                 return true;
             }
 
-            Vector3 facing = aimRoot.forward;
-            facing.y = 0f;
+            Vector3 facing = resolveFireFacing();
             if (facing.sqrMagnitude < 0.0001f)
             {
                 return false;
@@ -149,6 +165,42 @@ namespace ZombieWar.Player
 
             float angle = Vector3.Angle(facing.normalized, toTarget.normalized);
             return angle <= fireFacingHalfAngleDegrees;
+        }
+
+        private Vector3 resolveFireFacing()
+        {
+            if (playerMovement != null && playerMovement.MoveAmount >= IdleMoveThreshold)
+            {
+                Vector3 moveFacing = playerMovement.MoveDirection;
+                if (moveFacing.sqrMagnitude > 0.0001f)
+                {
+                    return moveFacing;
+                }
+
+                return playerMovement.FacingDirection;
+            }
+
+            if (playerMovement != null)
+            {
+                return playerMovement.FacingDirection;
+            }
+
+            if (aimRoot == null)
+            {
+                return transform.forward;
+            }
+
+            Vector3 facing = aimRoot.forward;
+            facing.y = 0f;
+            return facing;
+        }
+
+        private float planarDistanceTo(Vector3 worldPosition)
+        {
+            Vector3 origin = aimRoot != null ? aimRoot.position : transform.position;
+            Vector3 delta = worldPosition - origin;
+            delta.y = 0f;
+            return delta.magnitude;
         }
     }
 }

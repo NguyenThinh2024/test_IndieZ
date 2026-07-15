@@ -257,6 +257,15 @@ namespace ZombieWar.Enemy
                 return agent.isOnNavMesh;
             }
 
+            // Last attempt: sample from high above so we drop onto floor from a floater spawn.
+            Vector3 fromAbove = transform.position + Vector3.up * 25f;
+            if (NavMesh.SamplePosition(fromAbove, out NavMeshHit aboveHit, 50f, NavMesh.AllAreas))
+            {
+                agent.Warp(aboveHit.position);
+                transform.position = aboveHit.position;
+                return agent.isOnNavMesh;
+            }
+
             return false;
         }
 

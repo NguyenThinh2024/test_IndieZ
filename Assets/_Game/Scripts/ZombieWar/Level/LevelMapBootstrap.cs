@@ -101,15 +101,21 @@ namespace ZombieWar.Level
                 waveManager.SetLevelConfig(entry.WaveConfig);
             }
 
+            // Drop Addressable instance + any baked leftover siblings (e.g. scene-placed level1).
+            releaseMap();
+            destroyForeignMaps(keepAlive: null);
+
             GameObject map = await mapLoader.LoadAsync(entry.MapAddress, mapParent, token);
             if (map == null)
             {
                 return null;
             }
 
+            destroyForeignMaps(keepAlive: map);
+
             await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate, token);
-            bakeNavMeshIfNeeded();
-            snapWaveSpawnPointsToNavMesh();
+            bakeNavMeshIfNeeded(map);
+            placeActorsOnMap(map);
 
             isMapReady = true;
             LevelPrepared?.Invoke(entry);
@@ -129,11 +135,32 @@ namespace ZombieWar.Level
             releaseMap();
         }
 
-        private void bakeNavMeshIfNeeded()
+        private void bakeNavMeshIfNeeded(GameObject map)
         {
             if (!bakeNavMeshOnMapReady)
             {
                 return;
+            }
+
+            // Prefer baked NavMesh carried by the level prefab.
+            if (map != null)
+            {
+                NavMeshSurface mapSurface = map.GetComponentInChildren<NavMeshSurface>(true);
+                if (mapSurface != null && mapSurface.navMeshData != null)
+                {
+                    // Scene surface from a previous map must not stay merged into NavMesh.
+                    if (navMeshSurface != null && navMeshSurface != mapSurface)
+                    {
+                        navMeshSurface.RemoveData();
+                    }
+
+                    if (!mapSurface.enabled)
+                    {
+                        mapSurface.enabled = true;
+                    }
+
+                    return;
+                }
             }
 
             if (navMeshSurface == null)
@@ -150,14 +177,51 @@ namespace ZombieWar.Level
             navMeshSurface.BuildNavMesh();
         }
 
-        private void snapWaveSpawnPointsToNavMesh()
+        private void placeActorsOnMap(GameObject map)
         {
             if (waveManager == null)
             {
                 return;
             }
 
-            waveManager.SnapSpawnPointsToNavMesh();
+            waveManager.PlaceActorsOnMap(map);
+        }
+
+        /// <summary>
+        /// Removes baked / leftover map children under mapParent that are not the active Addressable instance.
+        /// </summary>
+        private void destroyForeignMaps(GameObject keepAlive)
+        {
+            Transform parent = mapParent != null ? mapParent : transform;
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                Transform child = parent.GetChild(i);
+                if (child == null)
+                {
+                    continue;
+                }
+
+                if (keepAlive != null && child.gameObject == keepAlive)
+                {
+                    continue;
+                }
+
+                NavMeshSurface leftoverSurface = child.GetComponentInChildren<NavMeshSurface>(true);
+                if (leftoverSurface != null)
+                {
+                    leftoverSurface.RemoveData();
+                }
+
+                if (Application.isPlaying)
+                {
+                    child.gameObject.SetActive(false);
+                    Destroy(child.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(child.gameObject);
+                }
+            }
         }
 
         private void releaseMap()

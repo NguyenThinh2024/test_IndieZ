@@ -99,8 +99,7 @@ namespace ZombieWar.Player
             {
                 characterTransform.localPosition = Vector3.zero;
                 characterTransform.localRotation = Quaternion.identity;
-                // loading player character scale is 0.4 
-                characterTransform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                characterTransform.localScale = new Vector3(2f, 2f, 2f);
             }
 
             private static void disableFirstPersonRoots(Transform characterRoot)

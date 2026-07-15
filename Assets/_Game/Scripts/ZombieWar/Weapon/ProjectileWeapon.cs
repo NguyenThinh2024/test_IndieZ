@@ -125,11 +125,7 @@ namespace ZombieWar.Weapon
 
             nextFireTime = Time.time + Mathf.Max(0.01f, gunData.FireRate);
 
-            Vector3 baseDirection = (targetPoint - firePoint.position).normalized;
-            if (baseDirection.sqrMagnitude < 0.001f)
-            {
-                baseDirection = firePoint.forward;
-            }
+            Vector3 baseDirection = ResolveShotDirection(targetPoint, owner);
 
             for (int i = 0; i < gunData.PelletCount; i++)
             {
@@ -187,6 +183,37 @@ namespace ZombieWar.Weapon
             }
 
             audioSource.PlayOneShot(clip);
+        }
+
+        /// <summary>
+        /// Flat aim from body toward target at muzzle height.
+        /// Using muzzle→target makes handed guns look skewed and flips backward when the enemy is closer than the barrel.
+        /// </summary>
+        private Vector3 ResolveShotDirection(Vector3 targetPoint, GameObject owner)
+        {
+            Vector3 muzzle = firePoint.position;
+            Transform body = owner != null ? owner.transform : transform;
+
+            Vector3 leveledTarget = targetPoint;
+            leveledTarget.y = muzzle.y;
+
+            Vector3 fromBody = leveledTarget - body.position;
+            fromBody.y = 0f;
+
+            if (fromBody.sqrMagnitude >= 0.0001f)
+            {
+                return fromBody.normalized;
+            }
+
+            Vector3 facing = body.forward;
+            facing.y = 0f;
+            if (facing.sqrMagnitude < 0.0001f)
+            {
+                facing = firePoint.forward;
+                facing.y = 0f;
+            }
+
+            return facing.sqrMagnitude > 0.0001f ? facing.normalized : Vector3.forward;
         }
 
         private static Vector3 ApplySpread(Vector3 direction, float spreadAngle, int pelletIndex, int pelletCount)

@@ -546,45 +546,201 @@ namespace ZombieWar.Level
         }
 
         /// <summary>
-        /// Call after NavMesh bake so authored spawn transforms sit on walkable ground.
+        /// Call after NavMesh bake so player + spawn points sit on walkable ground.
         /// </summary>
         public void SnapSpawnPointsToNavMesh()
         {
-            if (spawnPoints == null)
+            if (spawnPoints != null)
+            {
+                for (int i = 0; i < spawnPoints.Length; i++)
+                {
+                    ZombieSpawnPoint spawnPoint = spawnPoints[i];
+                    if (spawnPoint == null)
+                    {
+                        continue;
+                    }
+
+                    spawnPoint.transform.position = resolveGroundPosition(spawnPoint.Position);
+                }
+            }
+
+            snapPlayerToGround();
+        }
+
+        /// <summary>
+        /// Moves the player to the loaded map center, then fans spawn points around that center
+        /// on NavMesh. Call after the active map's NavMesh is ready.
+        /// </summary>
+        public void PlaceActorsOnMap(GameObject map)
+        {
+            if (map == null)
+            {
+                SnapSpawnPointsToNavMesh();
+                return;
+            }
+
+            Vector3 mapCenter = resolveMapCenter(map);
+            Vector3 playerPos = resolveGroundPosition(mapCenter);
+
+            if (playerTarget != null)
+            {
+                playerTarget.position = playerPos;
+                PlayerMovement movement = playerTarget.GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    movement.SnapToGroundHeight(playerPos.y);
+                }
+            }
+
+            if (spawnPoints != null && spawnPoints.Length > 0)
+            {
+                float radius = resolveSpawnRingRadius(map);
+                for (int i = 0; i < spawnPoints.Length; i++)
+                {
+                    ZombieSpawnPoint spawnPoint = spawnPoints[i];
+                    if (spawnPoint == null)
+                    {
+                        continue;
+                    }
+
+                    float angle = (Mathf.PI * 2f * i) / spawnPoints.Length;
+                    Vector3 desired = playerPos + new Vector3(
+                        Mathf.Cos(angle) * radius,
+                        0f,
+                        Mathf.Sin(angle) * radius);
+                    spawnPoint.transform.position = resolveGroundPosition(desired);
+                }
+
+                return;
+            }
+
+            snapPlayerToGround();
+        }
+
+        private static Vector3 resolveMapCenter(GameObject map)
+        {
+            Renderer[] renderers = map.GetComponentsInChildren<Renderer>();
+            if (renderers != null && renderers.Length > 0)
+            {
+                Bounds bounds = renderers[0].bounds;
+                for (int i = 1; i < renderers.Length; i++)
+                {
+                    if (renderers[i] != null)
+                    {
+                        bounds.Encapsulate(renderers[i].bounds);
+                    }
+                }
+
+                return bounds.center;
+            }
+
+            return map.transform.position;
+        }
+
+        private static float resolveSpawnRingRadius(GameObject map)
+        {
+            Renderer[] renderers = map.GetComponentsInChildren<Renderer>();
+            if (renderers == null || renderers.Length == 0)
+            {
+                return 18f;
+            }
+
+            Bounds bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++)
+            {
+                if (renderers[i] != null)
+                {
+                    bounds.Encapsulate(renderers[i].bounds);
+                }
+            }
+
+            float halfMin = Mathf.Min(bounds.size.x, bounds.size.z) * 0.5f;
+            return Mathf.Clamp(halfMin * 0.35f, 10f, 28f);
+        }
+
+        private void snapPlayerToGround()
+        {
+            if (playerTarget == null)
             {
                 return;
             }
 
-            for (int i = 0; i < spawnPoints.Length; i++)
-            {
-                ZombieSpawnPoint spawnPoint = spawnPoints[i];
-                if (spawnPoint == null)
-                {
-                    continue;
-                }
+            Vector3 snapped = resolveGroundPosition(playerTarget.position);
+            playerTarget.position = snapped;
 
-                Vector3 snapped = resolveNavMeshSpawnPosition(spawnPoint.Position);
-                spawnPoint.transform.position = snapped;
+            PlayerMovement movement = playerTarget.GetComponent<PlayerMovement>();
+            if (movement != null)
+            {
+                movement.SnapToGroundHeight(snapped.y);
             }
         }
 
         private Vector3 resolveNavMeshSpawnPosition(Vector3 desired)
         {
-            float[] radii = { 2f, 8f, 20f, 40f };
-            for (int i = 0; i < radii.Length; i++)
+            return resolveGroundPosition(desired);
+        }
+
+        /// <summary>
+        /// Samples NavMesh from above the desired XZ so floating spawns drop onto the floor
+        /// instead of staying at scene Awake height.
+        /// </summary>
+        private Vector3 resolveGroundPosition(Vector3 desired)
+        {
+            float[] probeHeights =
             {
-                if (NavMesh.SamplePosition(desired, out NavMeshHit hit, radii[i], NavMesh.AllAreas))
+                desired.y + 40f,
+                desired.y + 15f,
+                desired.y,
+                desired.y - 10f,
+            };
+            float[] radii = { 3f, 10f, 25f, 50f };
+
+            Vector3 best = desired;
+            bool found = false;
+            float bestAbsDelta = float.MaxValue;
+
+            for (int h = 0; h < probeHeights.Length; h++)
+            {
+                Vector3 probe = new Vector3(desired.x, probeHeights[h], desired.z);
+                for (int r = 0; r < radii.Length; r++)
                 {
-                    return hit.position;
+                    if (!NavMesh.SamplePosition(probe, out NavMeshHit hit, radii[r], NavMesh.AllAreas))
+                    {
+                        continue;
+                    }
+
+                    // Prefer samples under (or close to) the probe — map floor below a floater.
+                    float delta = Mathf.Abs(hit.position.y - desired.y);
+                    float underBias = hit.position.y <= desired.y + 0.5f ? 0f : 5f;
+                    float score = delta + underBias;
+                    if (!found || score < bestAbsDelta)
+                    {
+                        bestAbsDelta = score;
+                        best = hit.position;
+                        found = true;
+                    }
                 }
+
+                if (found && best.y <= desired.y + 0.5f)
+                {
+                    return best;
+                }
+            }
+
+            if (found)
+            {
+                return best;
             }
 
             if (playerTarget != null)
             {
-                Vector3 nearPlayer = playerTarget.position + new Vector3(6f, 0f, 6f);
-                for (int i = 0; i < radii.Length; i++)
+                Vector3 nearPlayer = new Vector3(
+                    playerTarget.position.x + 6f,
+                    playerTarget.position.y + 20f,
+                    playerTarget.position.z + 6f);
+                for (int r = 0; r < radii.Length; r++)
                 {
-                    if (NavMesh.SamplePosition(nearPlayer, out NavMeshHit hit, radii[i], NavMesh.AllAreas))
+                    if (NavMesh.SamplePosition(nearPlayer, out NavMeshHit hit, radii[r], NavMesh.AllAreas))
                     {
                         return hit.position;
                     }

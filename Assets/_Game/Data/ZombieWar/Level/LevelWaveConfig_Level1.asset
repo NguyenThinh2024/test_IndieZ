@@ -19,7 +19,7 @@ MonoBehaviour:
     spawnCount: 12
     maxAlive: 10
     displayName: WAVE 1
-    announceSubtitle: 
+    announceSubtitle: Survive the horde
     isBoss: 0
     announceEnabled: 1
     announceLeadSeconds: 2.5
@@ -36,7 +36,7 @@ MonoBehaviour:
     spawnCount: 16
     maxAlive: 12
     displayName: WAVE 2
-    announceSubtitle: 
+    announceSubtitle: More incoming
     isBoss: 0
     announceEnabled: 1
     announceLeadSeconds: 2.5
@@ -53,7 +53,7 @@ MonoBehaviour:
     spawnCount: 18
     maxAlive: 12
     displayName: WAVE 3
-    announceSubtitle: 
+    announceSubtitle: Final push
     isBoss: 0
     announceEnabled: 1
     announceLeadSeconds: 2.5

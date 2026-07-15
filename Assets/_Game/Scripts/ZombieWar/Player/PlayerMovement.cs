@@ -21,11 +21,64 @@ namespace ZombieWar.Player
 
         public float MoveAmount { get; private set; }
         public Vector3 MoveDirection => moveDirection;
+
+        /// <summary>
+        /// Body facing used for fire cone / shoot alignment (visual root when present).
+        /// </summary>
+        public Vector3 FacingDirection
+        {
+            get
+            {
+                Transform facingRoot = visualRoot != null ? visualRoot : transform;
+                Vector3 facing = facingRoot.forward;
+                facing.y = 0f;
+                return facing.sqrMagnitude > 0.0001f ? facing.normalized : Vector3.forward;
+            }
+        }
+
         public bool HasCombatTarget => targetScanner != null && targetScanner.CurrentTarget != null;
 
         public void ApplyMoveSpeed(float value)
         {
             moveSpeed = Mathf.Max(0f, value);
+        }
+
+        /// <summary>
+        /// Call after level map / NavMesh is ready so the player sits on walkable ground
+        /// instead of the Awake-time Y (often floating above the Addressable map).
+        /// </summary>
+        public void SnapToGroundHeight(float worldY)
+        {
+            Vector3 position = transform.position;
+            position.y = worldY;
+            transform.position = position;
+            groundHeight = worldY;
+            verticalVelocity = 0f;
+        }
+
+        /// <summary>
+        /// Faces the visual root (body) toward a world direction. Used by combat when idle aiming.
+        /// </summary>
+        public void FaceWorldDirection(Vector3 worldDirection, bool instant)
+        {
+            worldDirection.y = 0f;
+            if (worldDirection.sqrMagnitude < 0.001f)
+            {
+                return;
+            }
+
+            Transform facingRoot = visualRoot != null ? visualRoot : transform;
+            Quaternion targetRotation = Quaternion.LookRotation(worldDirection.normalized, Vector3.up);
+            if (instant)
+            {
+                facingRoot.rotation = targetRotation;
+                return;
+            }
+
+            facingRoot.rotation = Quaternion.RotateTowards(
+                facingRoot.rotation,
+                targetRotation,
+                rotationDegreesPerSecond * Time.deltaTime);
         }
 
         #region Unity Lifecycle

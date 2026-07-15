@@ -193,18 +193,26 @@ namespace ZombieWar.EditorTools
 
         private static void removeBakedLevelInstance()
         {
-            GameObject baked = GameObject.Find("level1");
-            if (baked == null)
+            // Maps must come from Addressables only — clear baked scene instance under ZW_LevelMapRoot.
+            GameObject root = GameObject.Find("ZW_LevelMapRoot");
+            if (root != null)
             {
-                baked = GameObject.Find("level2");
+                for (int i = root.transform.childCount - 1; i >= 0; i--)
+                {
+                    Transform child = root.transform.GetChild(i);
+                    string childName = child.name;
+                    Undo.DestroyObjectImmediate(child.gameObject);
+                    Debug.Log($"[Zombie War] Removed baked map child '{childName}' (will load via Addressables).");
+                }
             }
 
+            GameObject baked = GameObject.Find("level1") ?? GameObject.Find("level2");
             if (baked == null)
             {
                 return;
             }
 
-            // Only remove scene-root baked maps, not runtime children under bootstrap.
+            // Also remove orphan scene-root baked maps.
             if (baked.transform.parent != null)
             {
                 return;

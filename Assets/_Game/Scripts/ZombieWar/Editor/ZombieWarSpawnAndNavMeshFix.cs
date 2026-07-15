@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System.IO;
 using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -13,21 +14,76 @@ namespace ZombieWar.EditorTools
     /// <summary>
     /// Bake NavMesh from current map geometry and snap WaveManager spawn points onto walkable ground.
     /// Menu: Zombie War / Fix Spawns And Bake NavMesh
+    /// Also runs once when Assets/_Game/EditorTemp/BakeNavMesh.request exists.
     /// </summary>
     public static class ZombieWarSpawnAndNavMeshFix
     {
         private const string MenuPath = "Zombie War/Fix Spawns And Bake NavMesh";
+        private const string RequestPath = "Assets/_Game/EditorTemp/BakeNavMesh.request";
         private const string Level1PrefabPath = "Assets/_Game/Prefabs/ZombieWar/Levels/level1.prefab";
+        private const string Level2PrefabPath = "Assets/_Game/Prefabs/ZombieWar/Levels/level2.prefab";
         private const float SpawnRadius = 28f;
-        private const float SampleRadius = 12f;
 
         [MenuItem(MenuPath)]
         public static void Fix()
         {
+            fixInternal();
+        }
+
+        [InitializeOnLoadMethod]
+        private static void autoBakeIfRequested()
+        {
+            EditorApplication.delayCall += tryAutoBakeWhenReady;
+        }
+
+        private static void tryAutoBakeWhenReady()
+        {
+            if (!File.Exists(RequestPath))
+            {
+                return;
+            }
+
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating)
+            {
+                EditorApplication.delayCall += tryAutoBakeWhenReady;
+                return;
+            }
+
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                return;
+            }
+
+            try
+            {
+                File.Delete(RequestPath);
+                string meta = RequestPath + ".meta";
+                if (File.Exists(meta))
+                {
+                    File.Delete(meta);
+                }
+            }
+            catch
+            {
+                // Continue bake even if request delete fails.
+            }
+
+            fixInternal();
+        }
+
+        private static void fixInternal()
+        {
+            const string scenePath = "Assets/_SDK/Template/Scenes/Gameplay.unity";
+            Scene scene = SceneManager.GetActiveScene();
+            if (!scene.IsValid() || scene.path != scenePath)
+            {
+                scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+            }
+
             PlayerHealth playerHealth = Object.FindFirstObjectByType<PlayerHealth>();
             if (playerHealth == null)
             {
-                Debug.LogError("[Zombie War] PlayerHealth not found.");
+                Debug.LogError("[Zombie War] PlayerHealth not found. Open Gameplay with player__root.");
                 return;
             }
 
@@ -45,25 +101,35 @@ namespace ZombieWar.EditorTools
             ZombieWarNavMeshBakeSetup.SetupAndBakeNavMesh();
 
             NavMeshSurface surface = Object.FindFirstObjectByType<NavMeshSurface>();
-            if (bootstrap != null && surface != null)
+            if (surface == null)
+            {
+                Debug.LogError("[Zombie War] NavMeshSurface missing after bake setup.");
+                return;
+            }
+
+            if (bootstrap != null)
             {
                 SerializedObject bootSo = new SerializedObject(bootstrap);
                 bootSo.FindProperty("navMeshSurface").objectReferenceValue = surface;
                 bootSo.FindProperty("bakeNavMeshOnMapReady").boolValue = true;
                 bootSo.ApplyModifiedPropertiesWithoutUndo();
+                EditorUtility.SetDirty(bootstrap);
             }
 
             ZombieSpawnPoint[] points = placeAndSnapSpawnPoints(waveManager.transform, player.position);
             wireSpawnPoints(waveManager, points);
 
-            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
-            EditorSceneManager.SaveOpenScenes();
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
 
+            NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
+            int vertCount = triangulation.vertices != null ? triangulation.vertices.Length : 0;
             Debug.Log(
-                "[Zombie War] Spawns + NavMesh fixed.\n" +
+                "[Zombie War] Spawns + NavMesh fixed and saved.\n" +
+                $"- NavMesh triangles verts: {vertCount}\n" +
                 $"- Spawn points: {points.Length} snapped around player at ~{SpawnRadius}m\n" +
-                "- NavMesh rebaked from current map\n" +
-                "- LevelMapBootstrap will rebake again after Addressable map load at runtime");
+                $"- LevelMapBootstrap.navMeshSurface = {surface.name}\n" +
+                "- Play Mode will rebake again after Addressable map load");
         }
 
         private static void ensureMapPresentForBake(LevelMapBootstrap bootstrap)
@@ -73,24 +139,29 @@ namespace ZombieWar.EditorTools
                 return;
             }
 
-            GameObject existing = GameObject.Find("level1");
-            if (existing != null)
+            if (GameObject.Find("level1") != null || GameObject.Find("level2") != null)
             {
                 return;
             }
 
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(Level1PrefabPath);
+            string prefabPath = Level1PrefabPath;
+            if (!File.Exists(prefabPath) && File.Exists(Level2PrefabPath))
+            {
+                prefabPath = Level2PrefabPath;
+            }
+
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab == null)
             {
-                Debug.LogWarning("[Zombie War] level1 prefab missing for editor bake preview.");
+                Debug.LogWarning($"[Zombie War] Level prefab missing for editor bake: {prefabPath}");
                 return;
             }
 
             Transform parent = bootstrap != null ? bootstrap.transform : null;
             GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
-            Undo.RegisterCreatedObjectUndo(instance, "Instantiate level1 for NavMesh bake");
-            instance.name = "level1";
-            Debug.Log("[Zombie War] Instantiated level1 for NavMesh bake.");
+            Undo.RegisterCreatedObjectUndo(instance, "Instantiate level for NavMesh bake");
+            instance.name = Path.GetFileNameWithoutExtension(prefabPath);
+            Debug.Log($"[Zombie War] Instantiated '{instance.name}' for NavMesh bake.");
         }
 
         private static ZombieSpawnPoint[] placeAndSnapSpawnPoints(Transform waveRoot, Vector3 playerPos)
@@ -125,7 +196,9 @@ namespace ZombieWar.EditorTools
                 if (!tryFindWalkableSpawn(playerPos, flatDir, out Vector3 snapped))
                 {
                     snapped = playerPos + flatDir * SpawnRadius;
-                    Debug.LogError($"[Zombie War] SpawnPoint_{i + 1} could not snap near player ground.", pointGo);
+                    Debug.LogWarning(
+                        $"[Zombie War] SpawnPoint_{i + 1} could not snap to NavMesh — left at approx radius.",
+                        pointGo);
                 }
 
                 pointGo.transform.position = snapped;
@@ -142,10 +215,6 @@ namespace ZombieWar.EditorTools
             return points;
         }
 
-        /// <summary>
-        /// Walk outward from player and prefer NavMesh hits near player height
-        /// (avoids snapping onto roofs / other elevation islands).
-        /// </summary>
         private static bool tryFindWalkableSpawn(Vector3 playerPos, Vector3 flatDir, out Vector3 result)
         {
             result = playerPos;
@@ -205,6 +274,7 @@ namespace ZombieWar.EditorTools
             }
 
             waveSo.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(waveManager);
         }
     }
 }

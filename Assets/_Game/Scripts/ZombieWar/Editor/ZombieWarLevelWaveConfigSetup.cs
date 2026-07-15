@@ -132,7 +132,8 @@ namespace ZombieWar.EditorTools
                 isBoss: false,
                 announceEnabled: true,
                 announceLead: 2.5f,
-                configGuid: wave1Guid);
+                configGuid: wave1Guid,
+                announceSubtitle: "Survive the horde");
 
             writeWave(
                 waves.GetArrayElementAtIndex(1),
@@ -144,7 +145,8 @@ namespace ZombieWar.EditorTools
                 isBoss: false,
                 announceEnabled: true,
                 announceLead: 2.5f,
-                configGuid: wave2Guid);
+                configGuid: wave2Guid,
+                announceSubtitle: "More incoming");
 
             writeWave(
                 waves.GetArrayElementAtIndex(2),
@@ -156,7 +158,8 @@ namespace ZombieWar.EditorTools
                 isBoss: wave3Boss,
                 announceEnabled: true,
                 announceLead: 2.5f,
-                configGuid: wave3Guid);
+                configGuid: wave3Guid,
+                announceSubtitle: wave3Boss ? "Prepare for the boss!" : "Final push");
 
             so.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(config);
