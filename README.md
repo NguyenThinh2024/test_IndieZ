@@ -14,8 +14,6 @@ Repo: [abc2003vvv/TEST-INDIEZ](https://github.com/abc2003vvv/TEST-INDIEZ)
 | Render pipeline | **URP 17.0.4** |
 | Platform chính | Mobile (Android build settings có sẵn trong Addressables) |
 
-Mở bằng Unity Hub → Open folder repo → đợi import xong. Không commit thư mục `Library/`, `Temp/`, `Logs/` (đã ignore).
-
 ---
 
 ## Cấu trúc thư mục chính
