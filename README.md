@@ -165,8 +165,6 @@ LevelMapBootstrap.OnEnable
 | Joystick Pack | Input di chuyển |
 | SDK `Assets/_SDK` | Loading, Menu, profile, scene change |
 
-Gameplay ZombieWar **không** gọi trực tiếp Ads / Analytics SDK — giữ ở lớp Infrastructure / SDK template.
-
 ---
 
 ## ProjectSettings trên Git
@@ -179,16 +177,6 @@ Folder `ProjectSettings/` và `Packages/` được version control để clone m
 - `TagManager`, `InputManager`, `QualitySettings`, …
 
 Local-only (đã `.gitignore`): `Library/`, `Temp/`, `Obj/`, `Logs/`, `UserSettings/`, `.cursor/`.
-
----
-
-## Cách chạy nhanh
-
-1. Mở project bằng Unity **6000.0.72f1**.  
-2. Enter Play từ scene **Loading**, hoặc Menu → **PLAY**.  
-3. Hierarchy Gameplay lúc Play: dưới `ZW_LevelMapRoot` chỉ nên có **một** map (`level1` hoặc `level2(Clone)`).  
-4. Confirm Addressables Groups còn địa chỉ `ZombieWar/Levels/Level1` và `Level2`.  
-5. Play Mode Script Addressables nên để **Use Asset Database (fastest)** khi dev local.
 
 ---
 
