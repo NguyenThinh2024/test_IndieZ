@@ -199,9 +199,3 @@ Local-only (đã `.gitignore`): `Library/`, `Temp/`, `Obj/`, `Logs/`, `UserSetti
 3. **Ownership rõ**: Bootstrap sở hữu map load; WaveManager sở hữu spawn; GameFlow sở hữu win/lose.  
 4. Addressable `Load` / `Instantiate` phải có `Release` tương ứng (`LevelMapLoader.Release`).  
 5. Tài liệu dự định cũ (một phần đã lệch so với code hiện tại): `Assets/_Game/Docs/LevelFlow-Architecture.md`.
-
----
-
-## License / nội dung third-party
-
-Project chứa asset demo bên thứ ba (Pure Poly, PostApocalypse guns, Survivalist…). Khi publish commercial cần kiểm tra license từng pack. File Terrain lớn (~65MB) có thể vượt khuyến nghị GitHub — cân nhắc Git LFS nếu tiếp tục đẩy asset tương tự.
