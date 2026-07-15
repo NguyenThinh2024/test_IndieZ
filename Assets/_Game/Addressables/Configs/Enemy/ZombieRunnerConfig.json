@@ -1,0 +1,26 @@
+{
+    "id": "zombie_runner",
+    "displayName": "Zombie Runner",
+    "spawnCount": 10,
+    "character": {
+        "prefabAddress": "ZombieWar/Enemy/Zombie",
+        "skinMaterialAddress": "ZombieWar/Enemy/Skins/MaskMap"
+    },
+    "stats": {
+        "maxHealth": 25.0,
+        "moveSpeed": 6.0,
+        "attackDamage": 12.0,
+        "attackRange": 1.8,
+        "attackCooldown": 0.9,
+        "destinationUpdateInterval": 0.15,
+        "animationSpeed": 1.25,
+        "locomotionRunBias": 0.9
+    },
+    "audio": {
+        "chaseClipAddress": "ZombieWar/Audio/Zombie/Grunt006",
+        "hitClipAddress": "ZombieWar/Audio/Zombie/Hiss010",
+        "deathClipAddress": "ZombieWar/Audio/Zombie/Death004",
+        "chaseIntervalMin": 2.0,
+        "chaseIntervalMax": 3.5
+    }
+}

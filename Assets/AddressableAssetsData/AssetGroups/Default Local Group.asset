@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: 50a50c91c789eba4795d684eaa4ab4e2
+  m_SerializeEntries:
+  - m_GUID: 14c335542d21d884981131441e443b8c
+    m_Address: ZombieWar/Levels/Level2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15f3eff39ab7f184f90c5236cf502685
+    m_Address: ZombieWar/Weapons/Configs/AUG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 168c9a5ac7025814ea9c89e5098a3cad
+    m_Address: ZombieWar/Audio/Zombie/Hiss010
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18fdbb7c60ee1ba4ba2c487e210e3c1f
+    m_Address: ZombieWar/Weapons/AUG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b145bcffd767854fb0c71c37678ebaa
+    m_Address: ZombieWar/Audio/AutoGun_1p_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e887034a8e4ef042b2f1683b6a2df2e
+    m_Address: ZombieWar/Enemy/Configs/ZombieRunner
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25f7626357b2d8042906e9109f8a722f
+    m_Address: ZombieWar/Vfx/MuzzleFlash
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c85bd009dff09749ad44311b469c3f1
+    m_Address: ZombieWar/Enemy/Configs/Zombie
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42d5bd4f1806f7b4894e48e5d1dc9b93
+    m_Address: ZombieWar/Enemy/Skins/Base
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f3fa7be138594d4badfb6467c42adbc
+    m_Address: ZombieWar/Enemy/Configs/ZombieShirtlessBoss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c16f929b391d824486b6c7bc42c0b91
+    m_Address: ZombieWar/Player/Configs/Soldier
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76b9d8179905d454e9bf6dcc847231ce
+    m_Address: ZombieWar/Player/PlayerArmature
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7dcffd166c15e6d4592221ab5adee10b
+    m_Address: ZombieWar/Enemy/Skins/MaskMap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89d784ddfa73bd344b54cf738be08738
+    m_Address: ZombieWar/Enemy/ShirtlessBoss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9df77b70cadc8384ca073a95aebc666f
+    m_Address: ZombieWar/Audio/Zombie/Death004
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a23f21c023852774aacadaa89cecec54
+    m_Address: ZombieWar/Weapons/Configs/FAMAS
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3e19b6267ac4724e9af6422ece4e722
+    m_Address: ZombieWar/Enemy/Zombie
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b771cd0787c16e64e8e8ba11c3c83734
+    m_Address: ZombieWar/Audio/Zombie/Grunt006
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c99791c55c933a0438d2c70b90446961
+    m_Address: ZombieWar/Levels/Level1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ceb2474913e8b5e40b17213af473d784
+    m_Address: ZombieWar/Audio/Zombie/Moan001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e04f012f10cc13244b3872c09699b8f7
+    m_Address: ZombieWar/Player/Soldier
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5c6b7f01197d1f409d97cbfd08b09de
+    m_Address: ZombieWar/Vfx/BulletTracer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f19e3fdb9c8082647a2c32beca28ba84
+    m_Address: ZombieWar/Audio/AutoGun_1p_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe4ea4d5164ca7f4fbabdfe482364386
+    m_Address: ZombieWar/Weapons/FAMAS
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ac596ecbfba62ea4886da854ddcfda3f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a8b7f556c32ed5f4dbe9a48fe118c22a, type: 2}
+    - {fileID: 11400000, guid: 951ad1bb27f11f544874cdbf60014c91, type: 2}

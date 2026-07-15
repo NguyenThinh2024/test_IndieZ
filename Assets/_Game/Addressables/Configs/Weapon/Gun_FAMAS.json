@@ -1,0 +1,23 @@
+{
+    "id": "famas",
+    "displayName": "FAMAS",
+    "visualPrefabAddress": "ZombieWar/Weapons/FAMAS",
+    "visualLocalScale": 0.2,
+    "gripLocalPosition": { "x": 0.0, "y": 0.02, "z": 0.05 },
+    "gripLocalEuler": { "x": 0.0, "y": 90.0, "z": 90.0 },
+    "firePointLocalPosition": { "x": 0.0, "y": 0.05, "z": 0.7 },
+    "damage": 12.0,
+    "fireRate": 0.1,
+    "range": 16.0,
+    "bulletSpeed": 50.0,
+    "pelletCount": 1,
+    "spreadAngle": 0.0,
+    "hitMask": -1,
+    "recoilDistance": 0.04,
+    "recoilDuration": 0.05,
+    "recoilPitchDegrees": 3.0,
+    "bulletPrefabAddress": "ZombieWar/Vfx/BulletTracer",
+    "muzzleVfxAddress": "ZombieWar/Vfx/MuzzleFlash",
+    "hitVfxAddress": "",
+    "fireClipAddress": "ZombieWar/Audio/AutoGun_1p_02"
+}

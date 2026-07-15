@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8010e6d51517ebd4fa5fd68c905b07cb, type: 3}
+  m_Name: LevelWaveConfig_Level1
+  m_EditorClassIdentifier: 
+  durationSeconds: 180
+  waves:
+  - startTime: 2.5
+    spawnInterval: 0.75
+    spawnCount: 12
+    maxAlive: 10
+    displayName: WAVE 1
+    announceSubtitle: 
+    isBoss: 0
+    announceEnabled: 1
+    announceLeadSeconds: 2.5
+    zombieConfigReference:
+      m_AssetGUID: 2c85bd009dff09749ad44311b469c3f1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    zombiePrefab: {fileID: 0}
+    zombieDataOverride: {fileID: 0}
+  - startTime: 2.5
+    spawnInterval: 0.7
+    spawnCount: 16
+    maxAlive: 12
+    displayName: WAVE 2
+    announceSubtitle: 
+    isBoss: 0
+    announceEnabled: 1
+    announceLeadSeconds: 2.5
+    zombieConfigReference:
+      m_AssetGUID: 2c85bd009dff09749ad44311b469c3f1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    zombiePrefab: {fileID: 0}
+    zombieDataOverride: {fileID: 0}
+  - startTime: 2.5
+    spawnInterval: 0.65
+    spawnCount: 18
+    maxAlive: 12
+    displayName: WAVE 3
+    announceSubtitle: 
+    isBoss: 0
+    announceEnabled: 1
+    announceLeadSeconds: 2.5
+    zombieConfigReference:
+      m_AssetGUID: 1e887034a8e4ef042b2f1683b6a2df2e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    zombiePrefab: {fileID: 0}
+    zombieDataOverride: {fileID: 0}

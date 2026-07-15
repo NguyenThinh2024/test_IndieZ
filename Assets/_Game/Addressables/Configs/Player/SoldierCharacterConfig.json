@@ -1,0 +1,17 @@
+{
+    "id": "soldier",
+    "displayName": "Soldier",
+    "character": {
+        "prefabAddress": "ZombieWar/Player/PlayerArmature"
+    },
+    "stats": {
+        "moveSpeed": 5
+    },
+    "animation": {
+        "controllerAddress": "",
+        "moveSpeedParameter": "Speed",
+        "shootTrigger": "Shoot",
+        "hitTrigger": "Hit",
+        "dieTrigger": "Die"
+    }
+}

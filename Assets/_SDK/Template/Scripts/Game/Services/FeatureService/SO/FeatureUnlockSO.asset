@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7886a5904e5b3c42acb2b1dcd0860a3, type: 3}
+  m_Name: FeatureUnlockSO
+  m_EditorClassIdentifier: Assembly-CSharp::Nexzap.Base.Gameplay.FeatureUnlockSO
+  config:
+  - type: 1
+    unlockAtLevel: 10
+    icon: {fileID: 21300000, guid: db1d95d60382500429935107e2dd773e, type: 3}
+    featureName: Hidden
+    featureDsc: There are many colored stickmans inside the stack.
+  - type: 1
+    unlockAtLevel: 5
+    icon: {fileID: 21300000, guid: 6d34f9ea0627c944897008590d582465, type: 3}
+    featureName: Stack
+    featureDsc: The stickman has hidden color, clear the stickman before it to reveal
+      it.
+  - type: 1
+    unlockAtLevel: 15
+    icon: {fileID: 21300000, guid: 8d9140f477d06bf4daaee6796adbcec8, type: 3}
+    featureName: 'Linked '
+    featureDsc: The two sickmans are stuck together, release both.
+  - type: 1
+    unlockAtLevel: 21
+    icon: {fileID: 21300000, guid: cd27de0b1893b034fa6a7702b4fdaaf4, type: 3}
+    featureName: Ice Jelly
+    featureDsc: The stickman has frozen, clear enough stickman to unlock the ice.

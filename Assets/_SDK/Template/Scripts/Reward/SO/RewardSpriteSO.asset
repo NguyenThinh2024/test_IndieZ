@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4314c32f7e273140a09a82b078e1a8b, type: 3}
+  m_Name: RewardSpriteSO
+  m_EditorClassIdentifier: 
+  rewardSprites:
+  - rewardType: 0
+    sprite: {fileID: 21300000, guid: f0c4832fe5cff514dafa235c54f0b72a, type: 3}
+    animations:
+    - {fileID: 21300000, guid: f0c4832fe5cff514dafa235c54f0b72a, type: 3}
+    - {fileID: 21300000, guid: bdcfc41bcae49724886aa4bfa038e526, type: 3}
+    - {fileID: 21300000, guid: da811ebee41bfd043b05c42035579aa3, type: 3}
+    - {fileID: 21300000, guid: 6c356ff4b0b7fef4dab0b352313ba5d4, type: 3}
+    - {fileID: 21300000, guid: 96ba3c0bd77f3e4488dc33bd0d33de47, type: 3}
+    - {fileID: 21300000, guid: 0954b485cdddda949b89d189253063c1, type: 3}
+    - {fileID: 21300000, guid: 281e709ee25df4049a699ebd5be451cf, type: 3}
+    - {fileID: 21300000, guid: f314c838fa997ad49be91576f99512f3, type: 3}
+    - {fileID: 21300000, guid: 8c3ec88158f4ae94ab0f80f3cdd1e93d, type: 3}
+    - {fileID: 21300000, guid: ec5b4c9706f13884e8d785a1deb9e16c, type: 3}
+    - {fileID: 21300000, guid: ac0a8e5e775f3a74d866475a1b502cdc, type: 3}
+    - {fileID: 21300000, guid: ee8b44d13bab77b4594be727532ad627, type: 3}
+    - {fileID: 21300000, guid: 9c6dd4b977cd7474bab37a22e1d7a8a3, type: 3}
+    - {fileID: 21300000, guid: 29bc8361f8334c2409b41ff622cb4282, type: 3}
+    - {fileID: 21300000, guid: 1ec7e100664399c4083ffb02cf2713fd, type: 3}
+    - {fileID: 21300000, guid: e63f0efb7e2136445bf24ed3950caa8b, type: 3}
+    - {fileID: 21300000, guid: b7f9a194eb5e6644fa2754d13ae7ea4a, type: 3}
+    - {fileID: 21300000, guid: dad14b314d117b74f9f2facce8bb2d20, type: 3}
+    - {fileID: 21300000, guid: 8bd7dffadd61a7140b9e9d16173a8d58, type: 3}
+    - {fileID: 21300000, guid: f9d3d4268867539408eac69edf5a4567, type: 3}
+    - {fileID: 21300000, guid: a1669dd1d527f1d459c198ef27a9d487, type: 3}
+    - {fileID: 21300000, guid: 45f522d756c80f040a7ab006f8b27137, type: 3}
+    - {fileID: 21300000, guid: 8e6df998558fca44589cd68efa06719d, type: 3}
+    - {fileID: 21300000, guid: de81c5bac6d8f144da737b9534c1f9d3, type: 3}
+    - {fileID: 21300000, guid: ffa80f01d16d30d46b5fa668ca707de0, type: 3}
+    - {fileID: 21300000, guid: 720a632aefe420d4696b0b326ef2e441, type: 3}
+    - {fileID: 21300000, guid: 7774159752fc77e408ea602a879b7e29, type: 3}
+    - {fileID: 21300000, guid: 79e58fff94f67dd458a0db0b856ab861, type: 3}
+    - {fileID: 21300000, guid: c4744e91d0db0d74aabd2dc0d6394b8d, type: 3}
+    - {fileID: 21300000, guid: 8cc534da4de950f4ca9177831bac2acd, type: 3}
+  - rewardType: 1
+    sprite: {fileID: 4606908045521496030, guid: 2b8558b645a07d74582677fd0bf9dfa9, type: 3}
+    animations: []
+  - rewardType: 2
+    sprite: {fileID: 4606908045521496030, guid: 2b8558b645a07d74582677fd0bf9dfa9, type: 3}
+    animations: []
+  - rewardType: 3
+    sprite: {fileID: 0}
+    animations: []
+  - rewardType: 10
+    sprite: {fileID: 6674386295937086461, guid: 7abd59d488ec3484089d5f418816dbdb, type: 3}
+    animations: []
+  - rewardType: 11
+    sprite: {fileID: 6674386295937086461, guid: 7abd59d488ec3484089d5f418816dbdb, type: 3}
+    animations: []
+  - rewardType: 12
+    sprite: {fileID: 6674386295937086461, guid: 7abd59d488ec3484089d5f418816dbdb, type: 3}
+    animations: []
+  - rewardType: 13
+    sprite: {fileID: 6674386295937086461, guid: 7abd59d488ec3484089d5f418816dbdb, type: 3}
+    animations: []
+  - rewardType: 20
+    sprite: {fileID: -3017979480325208809, guid: 4373b5a1916f3a8468bc2b0fdefa655e, type: 3}
+    animations: []
