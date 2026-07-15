@@ -165,19 +165,6 @@ LevelMapBootstrap.OnEnable
 
 ---
 
-## ProjectSettings trên Git
-
-Folder `ProjectSettings/` và `Packages/` được version control để clone mở được project:
-
-- `EditorBuildSettings.asset` — thứ tự scene Loading / Menu / Gameplay  
-- `ProjectVersion.txt` — version Unity  
-- `GraphicsSettings` / `URPProjectSettings` — pipeline  
-- `TagManager`, `InputManager`, `QualitySettings`, …
-
-Local-only (đã `.gitignore`): `Library/`, `Temp/`, `Obj/`, `Logs/`, `UserSettings/`, `.cursor/`.
-
----
-
 ## Ghi chú kiến trúc ngắn
 
 1. **Config ≠ Save ≠ Runtime** — SO catalog/wave là dữ liệu tác giả; PlayerPrefs là progress; máu / wave elapsed là runtime.  
