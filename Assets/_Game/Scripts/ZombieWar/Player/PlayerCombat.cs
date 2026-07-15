@@ -4,14 +4,11 @@ using ZombieWar.Weapon;
 namespace ZombieWar.Player
 {
     /// <summary>
-    /// Faces and fires the nearest in-zone target.
-    /// Joystick movement is owned by PlayerMovement; this owns combat facing.
-    /// While moving, fire only inside the forward cone. While idle / melee-close, snap aim and fire.
+    /// Faces and auto-fires the nearest in-zone target.
+    /// Joystick only moves the player; combat always aims (and can fire) while idle or moving.
     /// </summary>
     public sealed class PlayerCombat : MonoBehaviour
     {
-        private const float IdleMoveThreshold = 0.05f;
-
         [SerializeField] private EnemyTargetScanner targetScanner;
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private PlayerAnimation playerAnimation;
@@ -21,9 +18,7 @@ namespace ZombieWar.Player
         [SerializeField] private float aimRotationDegreesPerSecond = 540f;
         [SerializeField] private PlayerMovement playerMovement;
 
-        [SerializeField] [Range(1f, 180f)] private float fireFacingHalfAngleDegrees = 110f;
-
-        [Tooltip("Inside this planar distance, always snap-aim and fire (muzzle can sit past the enemy).")]
+        [Tooltip("Inside this planar distance, aim snaps instantly (muzzle can sit past the enemy).")]
         [SerializeField] private float closeRangeEngageDistance = 2.75f;
 
         private void Awake()
@@ -78,19 +73,11 @@ namespace ZombieWar.Player
             Vector3 targetPosition = target.position;
             float planarDistance = planarDistanceTo(targetPosition);
             bool isClose = planarDistance <= closeRangeEngageDistance;
-            bool isIdle = playerMovement == null || playerMovement.MoveAmount < IdleMoveThreshold;
-            bool shouldSnapAim = isIdle || isClose;
 
-            RotateToTarget(targetPosition, shouldSnapAim);
+            // Always face the engaged target so move + shoot both work (twin-stick).
+            RotateToTarget(targetPosition, snap: isClose);
 
             if (!autoFire || weaponController == null)
-            {
-                return;
-            }
-
-            // Cone uses move/body facing — not aimRoot after it already turned toward the enemy.
-            // Close range always fires: muzzle often sits past the enemy so cone / aim would fail.
-            if (!shouldSnapAim && !IsTargetInForwardFireCone(targetPosition))
             {
                 return;
             }
@@ -114,8 +101,7 @@ namespace ZombieWar.Player
 
             if (direction.sqrMagnitude < 0.0001f)
             {
-                // Enemy almost under the player — keep facing, still allow fire downstream.
-                direction = resolveFireFacing();
+                direction = resolveBodyFacing();
                 if (direction.sqrMagnitude < 0.0001f)
                 {
                     return;
@@ -140,46 +126,15 @@ namespace ZombieWar.Player
                 }
             }
 
-            // Keep body facing shoot direction when snap-aiming so muzzle lines up with bullets.
-            if (snap && playerMovement != null)
+            // Body faces shoot direction so muzzle lines up while strafing or standing.
+            if (playerMovement != null)
             {
-                playerMovement.FaceWorldDirection(direction, instant: true);
+                playerMovement.FaceWorldDirection(direction, instant: snap);
             }
         }
 
-        private bool IsTargetInForwardFireCone(Vector3 targetPosition)
+        private Vector3 resolveBodyFacing()
         {
-            Vector3 origin = aimRoot != null ? aimRoot.position : transform.position;
-            Vector3 toTarget = targetPosition - origin;
-            toTarget.y = 0f;
-            if (toTarget.sqrMagnitude < 0.0001f)
-            {
-                return true;
-            }
-
-            Vector3 facing = resolveFireFacing();
-            if (facing.sqrMagnitude < 0.0001f)
-            {
-                return false;
-            }
-
-            float angle = Vector3.Angle(facing.normalized, toTarget.normalized);
-            return angle <= fireFacingHalfAngleDegrees;
-        }
-
-        private Vector3 resolveFireFacing()
-        {
-            if (playerMovement != null && playerMovement.MoveAmount >= IdleMoveThreshold)
-            {
-                Vector3 moveFacing = playerMovement.MoveDirection;
-                if (moveFacing.sqrMagnitude > 0.0001f)
-                {
-                    return moveFacing;
-                }
-
-                return playerMovement.FacingDirection;
-            }
-
             if (playerMovement != null)
             {
                 return playerMovement.FacingDirection;

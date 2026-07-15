@@ -254,24 +254,23 @@ namespace ZombieWar.Level
 
         private static int resolveProfileLevel(int fallback)
         {
+            // PlayerPrefs is the easy clear target for "play from start".
+            if (PlayerPrefs.HasKey(SessionLevelKey))
+            {
+                return Mathf.Max(1, PlayerPrefs.GetInt(SessionLevelKey, fallback));
+            }
+
             try
             {
                 Nexzap.Base.Data.UserProfileController profile =
                     Nexzap.Base.Data.UserProfileController.Instance;
                 if (profile != null)
                 {
-                    int level = Mathf.Max(1, profile.LEVEL);
-                    PlayerPrefs.SetInt(SessionLevelKey, level);
-                    return level;
+                    return Mathf.Max(1, profile.LEVEL);
                 }
             }
             catch (Exception)
             {
-            }
-
-            if (PlayerPrefs.HasKey(SessionLevelKey))
-            {
-                return Mathf.Max(1, PlayerPrefs.GetInt(SessionLevelKey, fallback));
             }
 
             return Mathf.Max(1, fallback);
@@ -281,7 +280,10 @@ namespace ZombieWar.Level
 
         public static void PersistSessionLevel(int level)
         {
-            PlayerPrefs.SetInt(SessionLevelKey, Mathf.Max(1, level));
+            int clamped = Mathf.Max(1, level);
+            PlayerPrefs.SetInt(SessionLevelKey, clamped);
+            // Keep profile key in sync so Menu PLAY and Clear All PlayerPrefs stay consistent.
+            PlayerPrefs.SetInt("currentLevel", clamped);
             PlayerPrefs.Save();
         }
     }

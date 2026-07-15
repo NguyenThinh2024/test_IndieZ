@@ -105,15 +105,15 @@ namespace ZombieWar.UI
 
         private static int resolveLevel()
         {
+            if (PlayerPrefs.HasKey("ZW_SessionLevel"))
+            {
+                return Mathf.Max(1, PlayerPrefs.GetInt("ZW_SessionLevel", 1));
+            }
+
             UserProfileController profile = UserProfileController.Instance;
             if (profile != null)
             {
                 return Mathf.Max(1, profile.LEVEL);
-            }
-
-            if (PlayerPrefs.HasKey("ZW_SessionLevel"))
-            {
-                return Mathf.Max(1, PlayerPrefs.GetInt("ZW_SessionLevel", 1));
             }
 
             return 1;
