@@ -8,7 +8,7 @@ Project sử dụng **Addressables** để quản lý map và gameplay assets, *
 
 | Thành phần        | Công nghệ                     |
 | ----------------- | ----------------------------- |
-| Unity             | 6000.0.72f1                   |
+| Unity             | 6000.0.80f1                   |
 | Render Pipeline   | URP 17.0.4                    |
 | Platform          | Mobile / Android              |
 | Camera            | Cinemachine                   |
