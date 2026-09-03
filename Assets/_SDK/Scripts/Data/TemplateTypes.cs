@@ -1,4 +1,4 @@
-namespace Nexzap.Base.Data
+namespace Thinh.Base.Data
 {
     public enum BoosterType
     {

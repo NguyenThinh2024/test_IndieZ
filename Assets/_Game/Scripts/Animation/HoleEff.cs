@@ -1,4 +1,4 @@
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using UnityEngine;
 
 public class HoleEff : MonoBehaviour

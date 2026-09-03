@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     /// <summary>
     /// Game configuration - Adjust these values to tune your game

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
-using Nexzap.Base.UI.Template;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
+using Thinh.Base.UI.Template;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public class BoosterService : GameplayServiceBehaviour
     {

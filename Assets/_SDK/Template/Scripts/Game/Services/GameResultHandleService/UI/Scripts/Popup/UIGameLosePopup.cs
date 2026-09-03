@@ -1,14 +1,14 @@
 using System;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Data;
-using Nexzap.Base.Level;
-using Nexzap.Base.UI;
-using Nexzap.Base.UI.Template;
-using Nexzap.Template;
+using Thinh.Base.Ads;
+using Thinh.Base.Data;
+using Thinh.Base.Level;
+using Thinh.Base.UI;
+using Thinh.Base.UI.Template;
+using Thinh.Template;
 using TMPro;
 using UnityEngine;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public class UIGameLosePopup : UIBasePopup
     {

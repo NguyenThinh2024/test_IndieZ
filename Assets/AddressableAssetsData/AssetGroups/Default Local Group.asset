@@ -15,12 +15,6 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 50a50c91c789eba4795d684eaa4ab4e2
   m_SerializeEntries:
-  - m_GUID: 14c335542d21d884981131441e443b8c
-    m_Address: ZombieWar/Levels/Level2
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - LevelMap
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15f3eff39ab7f184f90c5236cf502685
     m_Address: ZombieWar/Weapons/Configs/AUG
     m_ReadOnly: 0
@@ -61,6 +55,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37d2c54838a42414dad376571461d172
+    m_Address: ZombieWar/Enemy/ShirtlessBoss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ab8b6177771e6443b37582bdf379187
+    m_Address: ZombieWar/Levels/Level2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 42d5bd4f1806f7b4894e48e5d1dc9b93
     m_Address: ZombieWar/Enemy/Skins/Base
     m_ReadOnly: 0
@@ -81,13 +85,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7dcffd166c15e6d4592221ab5adee10b
+  - m_GUID: 8601c27fb7cd9204ebda9442e822e9d0
     m_Address: ZombieWar/Enemy/Skins/MaskMap
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 89d784ddfa73bd344b54cf738be08738
-    m_Address: ZombieWar/Enemy/ShirtlessBoss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -118,11 +117,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ceb2474913e8b5e40b17213af473d784
     m_Address: ZombieWar/Audio/Zombie/Moan001
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e04f012f10cc13244b3872c09699b8f7
-    m_Address: ZombieWar/Player/Soldier
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

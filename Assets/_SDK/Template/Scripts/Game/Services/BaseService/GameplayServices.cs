@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public sealed class GameplayServices
     {

@@ -1,2 +1,18 @@
 fileFormatVersion: 2
-guid: 1b28580adab5eb24bb47c1d8edb4fb32
+guid: efc4511f2eea8034ca3a0a29cac8f554
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 68068
+  packageName: In-game Debug Console
+  packageVersion: 1.8.9
+  assetPath: Assets/Plugins/IngameDebugConsole/Scripts/Attributes/ConsoleAttribute.cs
+  uploadId: 970394

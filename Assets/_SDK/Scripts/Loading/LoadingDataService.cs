@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using Nexzap.Base.Data;
-using Nexzap.Template;
+using Thinh.Base.Data;
+using Thinh.Template;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public static class LoadingDataService
     {

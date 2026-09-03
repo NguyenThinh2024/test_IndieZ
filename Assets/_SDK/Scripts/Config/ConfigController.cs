@@ -1,7 +1,7 @@
-using Nexzap.Base;
+using Thinh.Base;
 using UnityEngine;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     /// <summary>
     /// Manager for all game configurations

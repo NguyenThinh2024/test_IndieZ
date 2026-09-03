@@ -1,14 +1,14 @@
 using System.Collections;
-using Nexzap.Base;
-using Nexzap.Base.Data;
-using Nexzap.Base.Gameplay;
-using Nexzap.Base.UI;
+using Thinh.Base;
+using Thinh.Base.Data;
+using Thinh.Base.Gameplay;
+using Thinh.Base.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem; // New Input System
 using UnityEngine.UI;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     public class CheatCanvas : MonoSingleton<CheatCanvas>
     {

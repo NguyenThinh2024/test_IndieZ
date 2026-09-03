@@ -1,9 +1,9 @@
 using System;
-using Nexzap.Base.Data;
-using Nexzap.Base.Level;
+using Thinh.Base.Data;
+using Thinh.Base.Level;
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     /// <summary>
     /// Service version of LevelController (drag-drop, no Singleton).

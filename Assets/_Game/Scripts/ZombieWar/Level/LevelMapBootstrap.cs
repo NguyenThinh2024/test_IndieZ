@@ -262,8 +262,8 @@ namespace ZombieWar.Level
 
             try
             {
-                Nexzap.Base.Data.UserProfileController profile =
-                    Nexzap.Base.Data.UserProfileController.Instance;
+                Thinh.Base.Data.UserProfileController profile =
+                    Thinh.Base.Data.UserProfileController.Instance;
                 if (profile != null)
                 {
                     return Mathf.Max(1, profile.LEVEL);

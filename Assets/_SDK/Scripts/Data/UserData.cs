@@ -1,6 +1,6 @@
 using System;
 
-namespace Nexzap.Base.Data
+namespace Thinh.Base.Data
 {
     [Serializable]
     public sealed class UserData

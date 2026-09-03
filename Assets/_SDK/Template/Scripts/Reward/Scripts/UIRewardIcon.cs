@@ -1,9 +1,9 @@
-using Nexzap.Base.Data;
+using Thinh.Base.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     public class UIRewardIcon : MonoBehaviour
     {

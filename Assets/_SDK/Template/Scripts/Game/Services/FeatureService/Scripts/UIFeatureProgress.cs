@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public sealed class UIFeatureProgress : MonoBehaviour
     {

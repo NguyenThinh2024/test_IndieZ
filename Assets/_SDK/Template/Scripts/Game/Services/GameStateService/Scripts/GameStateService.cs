@@ -1,9 +1,9 @@
 using System;
-using Nexzap.Base.Analytics;
-using Nexzap.Template;
+using Thinh.Base.Analytics;
+using Thinh.Template;
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public enum GameState
     {
@@ -65,11 +65,11 @@ namespace Nexzap.Base.Gameplay
 
             if (nextState == GameState.Win)
             {
-                NexzapAnalytics.ReportGameFinished(true, ResolveScore(), ResolveLevel());
+                ThinhAnalytics.ReportGameFinished(true, ResolveScore(), ResolveLevel());
             }
             else if (nextState == GameState.Lose)
             {
-                NexzapAnalytics.ReportGameFinished(false, ResolveScore(), ResolveLevel(), CurrentFailType.ToString());
+                ThinhAnalytics.ReportGameFinished(false, ResolveScore(), ResolveLevel(), CurrentFailType.ToString());
             }
         }
 
@@ -80,7 +80,7 @@ namespace Nexzap.Base.Gameplay
                 return;
             }
 
-            NexzapAnalytics.ReportGameStarted(ResolveLevel());
+            ThinhAnalytics.ReportGameStarted(ResolveLevel());
             hasReportedGameStart = true;
         }
 

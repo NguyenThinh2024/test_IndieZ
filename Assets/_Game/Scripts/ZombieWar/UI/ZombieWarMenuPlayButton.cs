@@ -1,6 +1,6 @@
-using Nexzap.Base;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
+using Thinh.Base;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using ZombieWar.Level;

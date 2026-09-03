@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Nexzap.Base.IAP;
+using Thinh.Base.IAP;
 using Cysharp.Threading.Tasks;
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
 /// <summary>
 /// IAP shop: chứa các IAPButtonUI và hỗ trợ scroll tới product tương ứng.

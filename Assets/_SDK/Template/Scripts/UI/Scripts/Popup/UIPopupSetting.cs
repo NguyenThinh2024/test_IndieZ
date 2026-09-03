@@ -1,8 +1,8 @@
 using UnityEngine;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using TMPro;
 
-namespace Nexzap.Base.UI.Template
+namespace Thinh.Base.UI.Template
 {
     public class UIPopupSetting : UIBasePopup
     {

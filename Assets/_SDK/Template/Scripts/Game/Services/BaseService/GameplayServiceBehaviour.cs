@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public interface IGameplayService
     {

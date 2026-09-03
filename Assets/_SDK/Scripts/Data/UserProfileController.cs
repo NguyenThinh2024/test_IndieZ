@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Nexzap.Template;
+using Thinh.Template;
 
-namespace Nexzap.Base.Data
+namespace Thinh.Base.Data
 {
     public sealed class UserProfileController : MonoSingleton<UserProfileController>
     {

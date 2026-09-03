@@ -1,10 +1,10 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public class UIBoosterGuide : MonoBehaviour
     {

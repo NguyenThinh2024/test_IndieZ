@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
 
-namespace Nexzap.Base.UI.Template
+namespace Thinh.Base.UI.Template
 {
     public class UICoinHeader : MonoBehaviour
     {

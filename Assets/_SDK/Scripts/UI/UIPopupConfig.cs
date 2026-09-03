@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Nexzap.Base.UI
+namespace Thinh.Base.UI
 {
-    [CreateAssetMenu(menuName = "Nexzap/UIPopupConfig", fileName = "UIPopupConfig")]
+    [CreateAssetMenu(menuName = "Thinh/UIPopupConfig", fileName = "UIPopupConfig")]
     public class UIPopupConfig : ScriptableObject
     {
         public List<UIBasePopup> popups = new List<UIBasePopup>();

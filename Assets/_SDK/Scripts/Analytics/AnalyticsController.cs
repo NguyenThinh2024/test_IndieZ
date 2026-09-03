@@ -12,7 +12,7 @@ using Firebase.Analytics;
 using GameAnalyticsSDK;
 #endif
 
-namespace Nexzap.Base.Analytics
+namespace Thinh.Base.Analytics
 {
     // ================= ENUM =================
 
@@ -33,12 +33,12 @@ namespace Nexzap.Base.Analytics
 
     // ================= CONTROLLER =================
 
-    public class AnalyticsController : MonoSingleton<AnalyticsController>, INexzapAnalyticsProvider
+    public class AnalyticsController : MonoSingleton<AnalyticsController>, IThinhAnalyticsProvider
     {
         public override void Init()
         {
             base.Init();
-            NexzapAnalytics.SetProvider(this);
+            ThinhAnalytics.SetProvider(this);
 #if GAME_ANALYTICS
             GameAnalytics.Initialize();
 #endif
@@ -46,7 +46,7 @@ namespace Nexzap.Base.Analytics
 
         protected override void OnDestroy()
         {
-            NexzapAnalytics.ClearProvider(this);
+            ThinhAnalytics.ClearProvider(this);
             base.OnDestroy();
         }
 

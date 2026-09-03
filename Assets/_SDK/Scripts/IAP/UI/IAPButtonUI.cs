@@ -1,10 +1,10 @@
 #if IAP
 using UnityEngine;
 using TMPro;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using UnityEngine.Purchasing;
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     public class IAPButtonUI : MonoBehaviour
     {

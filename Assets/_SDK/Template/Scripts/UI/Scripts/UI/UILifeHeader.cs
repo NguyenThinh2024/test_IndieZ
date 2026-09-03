@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro; // dùng TextMeshPro
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
 
-namespace Nexzap.Base.UI.Template
+namespace Thinh.Base.UI.Template
 {
     public class UILifeHeader : MonoBehaviour
     {

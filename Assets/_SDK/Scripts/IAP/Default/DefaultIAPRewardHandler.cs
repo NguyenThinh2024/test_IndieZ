@@ -1,8 +1,8 @@
 #if IAP
 using Cysharp.Threading.Tasks;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Data;
-using Nexzap.Base.Analytics;
+using Thinh.Base.Ads;
+using Thinh.Base.Data;
+using Thinh.Base.Analytics;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using AppsFlyerSDK;
 #endif
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     public class DefaultIAPRewardHandler : BaseIAPRewardHandler
     {

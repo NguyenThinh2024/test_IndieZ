@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading;
 
-namespace Nexzap.Base.Utils
+namespace Thinh.Base.Utils
 {
     /// <summary>
     /// SafeTime đảm bảo luôn có thể lấy Time.realtimeSinceStartup từ bất kỳ thread nào.

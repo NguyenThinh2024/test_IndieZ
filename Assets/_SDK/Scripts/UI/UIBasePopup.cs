@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Nexzap.Base.UI
+namespace Thinh.Base.UI
 {
     public abstract class UIBasePopup : MonoBehaviour
     {

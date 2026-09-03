@@ -1,9 +1,9 @@
-using Nexzap.Template;
+using Thinh.Template;
 using UnityEngine;
-using Nexzap.Base;
-namespace Nexzap.Template
+using Thinh.Base;
+namespace Thinh.Template
 {
-    [CreateAssetMenu(fileName = "RewardSpriteListSO", menuName = "Nexzap/Reward Sprite List SO")]
+    [CreateAssetMenu(fileName = "RewardSpriteListSO", menuName = "Thinh/Reward Sprite List SO")]
     public class RWSpriteListSO : ScriptableObject
     {
         public RewardSpriteSO[] rewardSpriteSOs;

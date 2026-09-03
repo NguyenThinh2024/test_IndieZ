@@ -1,4 +1,4 @@
-namespace Nexzap.Base.Level
+namespace Thinh.Base.Level
 {
     public enum LevelDifficultyType
     {

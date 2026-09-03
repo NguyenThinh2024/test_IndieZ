@@ -1,9 +1,9 @@
-using Nexzap.Base.Level;
+using Thinh.Base.Level;
 using System.Collections.Generic;
-using Nexzap.Base.Data;
+using Thinh.Base.Data;
 using UnityEngine;
 
-namespace Nexzap.Base.Level
+namespace Thinh.Base.Level
 {
 
     [System.Serializable]
@@ -15,7 +15,7 @@ namespace Nexzap.Base.Level
     }
 
 
-    [CreateAssetMenu(fileName = "LevelConfig", menuName = "Nexzap/Level Config", order = 1)]
+    [CreateAssetMenu(fileName = "LevelConfig", menuName = "Thinh/Level Config", order = 1)]
     public class LevelConfigSO : ScriptableObject
     {
         public List<LevelConfig> levels = new List<LevelConfig>();

@@ -1,16 +1,16 @@
 using System;
-using Nexzap.Base;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Data;
-using Nexzap.Base.Gameplay; // chứa IRevivePopupReceiver + RevivePopupData + FailType
-using Nexzap.Base.UI;
-using Nexzap.Base.UI.Template;
+using Thinh.Base;
+using Thinh.Base.Ads;
+using Thinh.Base.Data;
+using Thinh.Base.Gameplay; // chứa IRevivePopupReceiver + RevivePopupData + FailType
+using Thinh.Base.UI;
+using Thinh.Base.UI.Template;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     public class UIGameRevivePopup : UIBasePopup
     {

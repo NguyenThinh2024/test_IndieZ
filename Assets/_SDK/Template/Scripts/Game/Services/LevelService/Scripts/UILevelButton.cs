@@ -1,14 +1,14 @@
 using DG.Tweening;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
-using Nexzap.Base.UI.Template;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
+using Thinh.Base.UI.Template;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-namespace Nexzap.Base.Level
+namespace Thinh.Base.Level
 {
     public class UILevelButton : MonoBehaviour
     {

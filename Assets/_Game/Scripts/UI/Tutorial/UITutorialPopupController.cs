@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Nexzap.Base.UI;
-using Nexzap.Template;
+using Thinh.Base.UI;
+using Thinh.Template;
 using UnityEngine;
 using UnityEngine.UI;
 

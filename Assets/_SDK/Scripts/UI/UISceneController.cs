@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Nexzap.Base.UI
+namespace Thinh.Base.UI
 {
     public class SceneName
     {

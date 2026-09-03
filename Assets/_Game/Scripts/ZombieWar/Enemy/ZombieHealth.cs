@@ -1,7 +1,7 @@
 using System;
 using TBN;
 using UnityEngine;
-using VietPooling;
+using ThinhPooling;
 using ZombieWar.Core;
 
 namespace ZombieWar.Enemy
@@ -27,7 +27,7 @@ namespace ZombieWar.Enemy
         float IPoolReleaseListener.ReleaseDelay => recycleDelay;
 
         public bool IsAlive => health.IsAlive;
-        public bool UsesVietPooling => pooledInstance != null;
+        public bool UsesThinhPooling => pooledInstance != null;
 
         private void Awake()
         {
@@ -83,7 +83,7 @@ namespace ZombieWar.Enemy
             Died?.Invoke();
             PooledVfx.Spawn(deathVfxPrefab, transform.position, transform.rotation, 2f);
 
-            if (UsesVietPooling)
+            if (UsesThinhPooling)
             {
                 return;
             }

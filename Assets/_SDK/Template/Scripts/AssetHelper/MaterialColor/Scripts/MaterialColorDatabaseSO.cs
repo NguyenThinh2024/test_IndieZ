@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nexzap.Base.Assets
+namespace Thinh.Base.Assets
 {
     public enum ColorType : byte
     {
@@ -58,7 +58,7 @@ namespace Nexzap.Base.Assets
         Set2Yellow_5 = 49
     }
 
-    [CreateAssetMenu(fileName = "MaterialColorDatabase", menuName = "Nexzap/Materials/Material Color Database")]
+    [CreateAssetMenu(fileName = "MaterialColorDatabase", menuName = "Thinh/Materials/Material Color Database")]
     public class MaterialColorDatabaseSO : ScriptableObject
     {
         [Serializable]

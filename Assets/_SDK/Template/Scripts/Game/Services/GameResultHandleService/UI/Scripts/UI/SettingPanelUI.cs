@@ -1,10 +1,10 @@
-using Nexzap.Base.UI;
-using Nexzap.Base;
+using Thinh.Base.UI;
+using Thinh.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using DG.Tweening;
-using Nexzap.Base.Gameplay;
+using Thinh.Base.Gameplay;
 
 public class UIGameSettingPanel : MonoBehaviour
 {

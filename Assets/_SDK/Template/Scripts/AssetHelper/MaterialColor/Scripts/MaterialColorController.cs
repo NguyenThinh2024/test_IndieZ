@@ -1,7 +1,7 @@
-using Nexzap.Base.Assets;
+using Thinh.Base.Assets;
 using UnityEngine;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public sealed class MaterialColorController : MonoSingleton<MaterialColorController>
     {

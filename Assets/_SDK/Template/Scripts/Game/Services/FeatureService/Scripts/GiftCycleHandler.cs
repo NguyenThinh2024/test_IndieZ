@@ -1,13 +1,13 @@
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
-using Nexzap.Base.UI.Template;
-using Nexzap.Template;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
+using Thinh.Base.UI.Template;
+using Thinh.Template;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     /// <summary>
     /// After all features in FeatureUnlockSO are unlocked, takes over the

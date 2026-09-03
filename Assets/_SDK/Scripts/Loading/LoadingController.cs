@@ -1,11 +1,11 @@
 using System.Collections;
 using Cysharp.Threading.Tasks;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using ZombieWar.Infrastructure;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     /// <summary>
     /// Boot flow: Loading (warmup Addressables) → Menu.

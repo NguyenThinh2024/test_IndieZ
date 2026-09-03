@@ -1,8 +1,8 @@
 using TMPro;
 using UnityEngine;
-using Nexzap.Base.Gameplay;
-using Nexzap.Base.Level;
-using Nexzap.Base.Data; // LevelService
+using Thinh.Base.Gameplay;
+using Thinh.Base.Level;
+using Thinh.Base.Data; // LevelService
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 

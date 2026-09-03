@@ -1,5 +1,5 @@
 using System;
-using Nexzap.Base.Gameplay;
+using Thinh.Base.Gameplay;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -127,7 +127,7 @@ public class OnboardingService : GameplayServiceBehaviour
         ClearActiveState();
     }
 
-    private void HandleServiceLevelLoaded(int levelNumber, Nexzap.Base.Level.LevelConfig _)
+    private void HandleServiceLevelLoaded(int levelNumber, Thinh.Base.Level.LevelConfig _)
     {
         _pendingLevelIndex = Mathf.Max(0, levelNumber - 1);
         _awaitingRuntimeBootstrap = true;

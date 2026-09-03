@@ -1,5 +1,5 @@
 using UnityEngine;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using System;
 
 public class UIIAPSpecialPopup : UIBasePopup

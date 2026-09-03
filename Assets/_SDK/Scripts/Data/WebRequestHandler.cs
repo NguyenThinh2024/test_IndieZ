@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Nexzap.Base.Data
+namespace Thinh.Base.Data
 {
     public class WebRequestHandler : MonoSingleton<WebRequestHandler>
     {

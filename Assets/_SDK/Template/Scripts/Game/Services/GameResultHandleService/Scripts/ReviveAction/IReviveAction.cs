@@ -1,7 +1,7 @@
 using System;
-using Nexzap.Template;
+using Thinh.Template;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public interface IReviveAction
     {

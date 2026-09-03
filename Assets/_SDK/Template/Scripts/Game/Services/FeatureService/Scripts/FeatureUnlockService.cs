@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
-using Nexzap.Base.UI;
-using Nexzap.Base.Data;
+using Thinh.Base.UI;
+using Thinh.Base.Data;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public sealed class FeatureUnlockService : GameplayServiceBehaviour
     {

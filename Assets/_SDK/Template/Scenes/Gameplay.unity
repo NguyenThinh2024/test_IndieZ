@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 500738626}
   - component: {fileID: 500738625}
   m_Layer: 0
-  m_Name: wave___Manager
+  m_Name: Level wave manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1314,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 1196051076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -15.85, z: 80.1}
+  m_LocalPosition: {x: 19.23, y: -15.85, z: 83.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1583,7 +1583,6 @@ MonoBehaviour:
   autoFire: 1
   aimRotationDegreesPerSecond: 540
   playerMovement: {fileID: 1196051090}
-  fireFacingHalfAngleDegrees: 110
   closeRangeEngageDistance: 2.75
 --- !u!114 &1196051088
 MonoBehaviour:
@@ -1639,6 +1638,13 @@ MonoBehaviour:
   targetScanner: {fileID: 1196051078}
   rotationDegreesPerSecond: 360
   gravity: -25
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 127
+  groundCheckHeight: 1
+  groundCheckDistance: 2
+  groundOffset: 0.02
+  maxSlopeAngle: 50
   combatFacingExitGrace: 0.2
 --- !u!136 &1196051091
 CapsuleCollider:
@@ -2482,7 +2488,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 45
+  field of view: 100
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2508,8 +2514,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552105833}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.61346066, y: 0.000000013741697, z: -0.000000010674585, w: 0.7897253}
-  m_LocalPosition: {x: 0, y: -6.5, z: 74.1}
+  m_LocalRotation: {x: 0.6175806, y: -0.06668527, z: 0.052670855, w: 0.7819035}
+  m_LocalPosition: {x: 20.23, y: -4.5, z: 77.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2717,7 +2723,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: e343744244617fc408a232b31d16280a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4862d250c5c8361488d99883632cf569, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1604739038
 Transform:
@@ -3015,15 +3021,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'switch weapon '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f07c545139b9a78499b728edc66fe2b9, type: 2}
-  m_sharedMaterial: {fileID: -9098850148607290849, guid: f07c545139b9a78499b728edc66fe2b9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287006432
-  m_fontColor: {r: 0.8773585, g: 0.5255874, b: 0.5255874, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3040,10 +3046,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.74
+  m_fontSize: 51.8
   m_fontSizeBase: 25.74
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -3385,7 +3391,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 8, z: -6}
+  FollowOffset: {x: 1, y: 10, z: -6}
 --- !u!114 &2051443779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,7 +3416,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 45
+    FieldOfView: 100
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -3437,8 +3443,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051443776}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6134606, y: 0.000000023535653, z: -0.000000018282554, w: 0.78972536}
-  m_LocalPosition: {x: 0, y: -6.5, z: 74.1}
+  m_LocalRotation: {x: 0.6175806, y: -0.06668524, z: 0.052670833, w: 0.78190356}
+  m_LocalPosition: {x: 20.23, y: -4.5, z: 77.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

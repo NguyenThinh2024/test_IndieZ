@@ -1,11 +1,11 @@
 #if IAP
 using UnityEngine;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
-using Nexzap.Base.IAP;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Data;
+using Thinh.Base.IAP;
+using Thinh.Base.Ads;
+using Thinh.Base.Data;
 
 public class UIIAPShopDialog : UIBaseDialog
 {

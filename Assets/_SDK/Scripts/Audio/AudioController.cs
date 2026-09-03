@@ -1,10 +1,10 @@
-using Nexzap.Base.Data;
-using Nexzap.Base;
+using Thinh.Base.Data;
+using Thinh.Base;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public class AudioController : MonoSingleton<AudioController>
     {

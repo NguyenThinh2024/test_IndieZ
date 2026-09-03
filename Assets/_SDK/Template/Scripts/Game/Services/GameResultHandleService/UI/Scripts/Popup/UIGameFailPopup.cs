@@ -1,11 +1,11 @@
 using System;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using Nexzap.Template;
+using Thinh.Template;
 using TMPro;
-using Nexzap.Base;
+using Thinh.Base;
 
 public class UIGameFailPopup : UIBasePopup
 {

@@ -141,8 +141,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.97345436, y: 1.8912786, z: 1}
-  m_Center: {x: 0.023417592, y: 0.90789527, z: 0}
+  m_Size: {x: 0.45648932, y: 1.8912786, z: 1}
+  m_Center: {x: -0.05372218, y: 0.90789527, z: 0}
 --- !u!1 &891526004255555362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,10 +2413,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -740025679053912896, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 91e1bfddab2e07149a6e37f1c74aa6e0, type: 2}
     - target: {fileID: 919132149155446097, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
       propertyPath: m_Name
       value: SK_Military_Survivalist
       objectReference: {fileID: 0}
+    - target: {fileID: 1722104625739313597, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: daa8d9ddafbf2c3448faa8e6f2b6ae90, type: 2}
+    - target: {fileID: 3009330873299722656, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ed70616142da0fc49b90b7515061ffcf, type: 2}
     - target: {fileID: 5808880123208962777, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2425,6 +2437,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 035023331dbb59f40832fd4d54e4957e, type: 2}
+    - target: {fileID: 6755556773736151687, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041948800546545350, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a210e4596a34b764387336c54096ea70, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

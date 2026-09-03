@@ -1,7 +1,7 @@
 using System;
-using Nexzap.Base.Level;
+using Thinh.Base.Level;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public interface ILevelRuntime
     {

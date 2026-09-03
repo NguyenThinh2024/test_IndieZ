@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Nexzap.Base.Analytics;
-using Nexzap.Base;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
-using Nexzap.Base.Gameplay;
-using Nexzap.Base.UI.Template;
+using Thinh.Base.Analytics;
+using Thinh.Base;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
+using Thinh.Base.Gameplay;
+using Thinh.Base.UI.Template;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     public struct WinPopupData
     {
@@ -193,7 +193,7 @@ namespace Nexzap.Template
             };
 
             AdvanceLevelForWinIfNeeded(data.level);
-            NexzapAnalytics.ReportGameFinished(
+            ThinhAnalytics.ReportGameFinished(
                 true,
                 comboService != null ? comboService.StarTotal : 0f,
                 data.level);
@@ -364,7 +364,7 @@ namespace Nexzap.Template
                 failType = failTypeFallback
             };
 
-            NexzapAnalytics.ReportGameFinished(
+            ThinhAnalytics.ReportGameFinished(
                 false,
                 comboService != null ? comboService.StarTotal : 0f,
                 data.level,

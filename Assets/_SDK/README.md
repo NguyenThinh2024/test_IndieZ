@@ -1,16 +1,16 @@
-# Nexzap Template SDK
+# Thinh Template SDK
 
 This package contains the reusable SDK and provider-neutral gameplay template
 under `Assets/_SDK`.
 
 ## Export
 
-In Unity, select `Tools > Nexzap Template > Export Package`.
-The package is written to `Exports/NexzapTemplate.unitypackage`.
+In Unity, select `Tools > Thinh Template > Export Package`.
+The package is written to `Exports/ThinhTemplate.unitypackage`.
 
-Use `Tools > Nexzap Template > Export Full Package` to include gameplay
+Use `Tools > Thinh Template > Export Full Package` to include gameplay
 prefabs, required art/audio, DOTween, Odin, Lean GUI, and UI extensions. The
-full package is written to `Exports/NexzapTemplateFull.unitypackage` and
+full package is written to `Exports/ThinhTemplateFull.unitypackage` and
 excludes all assets under `Assets/VoodooPackages`.
 
 ## Required dependencies
@@ -37,7 +37,7 @@ adapter instead of adding provider-specific calls to gameplay services.
 
 ## Analytics
 
-`NexzapAnalytics` automatically reports `GameStarted` and `GameFinished` from
+`ThinhAnalytics` automatically reports `GameStarted` and `GameFinished` from
 the gameplay template. `AnalyticsController` forwards events to the enabled
 Firebase, GameAnalytics, and AppsFlyer integrations. Every gameplay event is
-also printed to the Console with the `[Nexzap.Analytics]` prefix.
+also printed to the Console with the `[Thinh.Analytics]` prefix.

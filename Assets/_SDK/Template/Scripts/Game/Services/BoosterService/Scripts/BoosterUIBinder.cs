@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Nexzap.Base.Data;
+using Thinh.Base.Data;
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public sealed class BoosterUIBinder : MonoBehaviour
     {

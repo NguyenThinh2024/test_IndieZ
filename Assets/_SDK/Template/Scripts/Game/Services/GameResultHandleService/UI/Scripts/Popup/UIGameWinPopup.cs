@@ -1,18 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Nexzap.Base;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
+using Thinh.Base;
+using Thinh.Base.Ads;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
 using TMPro;
 using UnityEngine;
-using Nexzap.Base.Gameplay;
-using Nexzap.Base.UI.Template;
+using Thinh.Base.Gameplay;
+using Thinh.Base.UI.Template;
 using UnityEngine.Events;
 using DG.Tweening;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     public class UIGameWinPopup : UIBasePopup
     {

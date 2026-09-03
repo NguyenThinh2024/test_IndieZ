@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     [Serializable]
     public class IAPSettings

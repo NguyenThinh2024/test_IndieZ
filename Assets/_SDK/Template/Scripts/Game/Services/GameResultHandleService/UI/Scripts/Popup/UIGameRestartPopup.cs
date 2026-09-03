@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 using UnityEngine.Events;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Data;
+using Thinh.Base.Ads;
+using Thinh.Base.Data;
 
 public class UIGameRestartPopup : UIBasePopup
 {

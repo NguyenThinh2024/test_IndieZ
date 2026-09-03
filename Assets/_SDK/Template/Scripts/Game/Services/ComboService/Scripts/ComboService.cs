@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     /// <summary>
     /// Combo = chuỗi hit trong khoảng thời gian.

@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using Nexzap.Base.Data;
+using Thinh.Base.Data;
 using UnityEngine;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public class VibrationController : MonoSingleton<VibrationController>
     {

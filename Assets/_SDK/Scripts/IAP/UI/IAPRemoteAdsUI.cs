@@ -1,8 +1,8 @@
 #if IAP
-using Nexzap.Base.Ads;
+using Thinh.Base.Ads;
 using UnityEngine;
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     public class IAPRemoteAdsUI : MonoBehaviour
     {

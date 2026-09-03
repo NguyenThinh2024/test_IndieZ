@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
-using VietPooling;
+using ThinhPooling;
 using ZombieWar.Core;
 
 namespace ZombieWar.Enemy

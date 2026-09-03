@@ -1,9 +1,9 @@
 using UnityEngine;
-using Nexzap.Base.UI;
-using Nexzap.Template;
-using Nexzap.Base.Gameplay; // if you are using UIBasePopup/UIPopupController flow
+using Thinh.Base.UI;
+using Thinh.Template;
+using Thinh.Base.Gameplay; // if you are using UIBasePopup/UIPopupController flow
 
-namespace Nexzap.Base.UI.Template
+namespace Thinh.Base.UI.Template
 {
     public class UISettingButton : MonoBehaviour
     {

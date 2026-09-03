@@ -1,9 +1,9 @@
-using Nexzap.Base;
+using Thinh.Base;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Nexzap.Base.UI
+namespace Thinh.Base.UI
 {
     public class UIPopupController : MonoSingleton<UIPopupController>
     {

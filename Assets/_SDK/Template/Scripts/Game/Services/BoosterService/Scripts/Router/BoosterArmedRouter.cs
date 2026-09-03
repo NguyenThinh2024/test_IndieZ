@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Nexzap.Base.Data;
+using Thinh.Base.Data;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public class BoosterArmedRouter : MonoBehaviour
     {

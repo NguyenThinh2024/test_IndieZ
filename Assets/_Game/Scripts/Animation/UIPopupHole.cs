@@ -1,4 +1,4 @@
-using Nexzap.Base.UI;
+using Thinh.Base.UI;
 
 public class UIPopupHole : UIBasePopup
 {

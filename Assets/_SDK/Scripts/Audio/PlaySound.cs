@@ -1,4 +1,4 @@
-using Nexzap.Base;
+using Thinh.Base;
 using UnityEngine;
 
 public class PlaySound : MonoBehaviour

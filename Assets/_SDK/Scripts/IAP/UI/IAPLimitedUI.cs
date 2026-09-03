@@ -4,7 +4,7 @@ using System;
 using UnityEngine.UI;
 using DG.Tweening;
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     public class IAPLimitedUI : MonoBehaviour
     {

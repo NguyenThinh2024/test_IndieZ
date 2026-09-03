@@ -11,7 +11,7 @@ using AppsFlyerSDK;
 
 using UnityEngine.Purchasing.Security;
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     public class IAPController : MonoSingleton<IAPController>, IStoreListener
     {

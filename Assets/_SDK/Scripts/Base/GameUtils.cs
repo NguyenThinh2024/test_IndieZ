@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public class GameUtils 
     {

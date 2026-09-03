@@ -1,8 +1,8 @@
 using System;
-using Nexzap.Base;
+using Thinh.Base;
 using UnityEngine;
 
-namespace Nexzap.Base.Ads
+namespace Thinh.Base.Ads
 {
     public class AdsController : MonoSingleton<AdsController>
     {

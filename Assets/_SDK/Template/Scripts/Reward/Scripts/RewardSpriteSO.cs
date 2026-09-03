@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Nexzap.Base.Data;
+using Thinh.Base.Data;
 using UnityEngine;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
 
-    [CreateAssetMenu(fileName = "RewardSpriteSO", menuName = "Nexzap/Reward Sprite SO", order = 0)]
+    [CreateAssetMenu(fileName = "RewardSpriteSO", menuName = "Thinh/Reward Sprite SO", order = 0)]
     public class RewardSpriteSO : ScriptableObject
     {
         [Serializable]

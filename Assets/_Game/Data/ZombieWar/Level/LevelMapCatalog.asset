@@ -15,9 +15,9 @@ MonoBehaviour:
   entries:
   - levelNumber: 1
     mapAddress: ZombieWar/Levels/Level1
-    displayName: Level 1
+    displayName: Level1
     waveConfig: {fileID: 11400000, guid: 383260717f9414741a5f0a012a547ae9, type: 2}
   - levelNumber: 2
     mapAddress: ZombieWar/Levels/Level2
-    displayName: Level 2
-    waveConfig: {fileID: 11400000, guid: af518ecfe32793246845eb2b3469485f, type: 2}
+    displayName: Level2
+    waveConfig: {fileID: 11400000, guid: f3076d80e129b374d94d068eee38526f, type: 2}

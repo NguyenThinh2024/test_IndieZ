@@ -1,6 +1,6 @@
 using System;
-using Nexzap.Base.Data;
-using Nexzap.Base.UI;
+using Thinh.Base.Data;
+using Thinh.Base.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

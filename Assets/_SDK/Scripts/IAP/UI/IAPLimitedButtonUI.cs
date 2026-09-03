@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 using System;
-using Nexzap.Base.UI;
-using Nexzap.Base.Data;
-namespace Nexzap.Base.IAP
+using Thinh.Base.UI;
+using Thinh.Base.Data;
+namespace Thinh.Base.IAP
 
 {
     public class IAPLimitedButtonUI : MonoBehaviour

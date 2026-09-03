@@ -1,10 +1,10 @@
 using TMPro;
 using UnityEngine;
-using Nexzap.Base.Data;
-using Nexzap.Base.Ads;
-using Nexzap.Template;
+using Thinh.Base.Data;
+using Thinh.Base.Ads;
+using Thinh.Template;
 
-namespace Nexzap.Base.UI.Template
+namespace Thinh.Base.UI.Template
 {
     public class UIPopupGetCoins : UIBasePopup
     {

@@ -1,7 +1,7 @@
-using Nexzap.Base;
+using Thinh.Base;
 using UnityEngine;
 
-namespace Nexzap.Template
+namespace Thinh.Template
 {
     public class GamePlayMusic : MonoBehaviour
     {

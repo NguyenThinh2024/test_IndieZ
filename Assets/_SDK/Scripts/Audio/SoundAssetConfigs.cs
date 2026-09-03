@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public enum SoundName
     {
@@ -54,7 +54,7 @@ namespace Nexzap.Base
         public float volume = 1f;
     }
 
-    [CreateAssetMenu(menuName = "Nexzap/SoundAssetConfigs", fileName = "SoundAssetConfigs")]
+    [CreateAssetMenu(menuName = "Thinh/SoundAssetConfigs", fileName = "SoundAssetConfigs")]
     public class SoundAssetConfigs: ScriptableObject
     {
         public List<SoundAsset> musics;

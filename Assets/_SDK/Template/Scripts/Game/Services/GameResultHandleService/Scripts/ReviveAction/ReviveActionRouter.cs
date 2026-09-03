@@ -1,5 +1,5 @@
-using Nexzap.Base.Gameplay;
-using Nexzap.Template;
+using Thinh.Base.Gameplay;
+using Thinh.Template;
 using UnityEngine;
 
 public sealed class ReviveActionRouter : MonoBehaviour

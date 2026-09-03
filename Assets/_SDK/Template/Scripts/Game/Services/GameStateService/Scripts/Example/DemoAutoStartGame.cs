@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace Nexzap.Base.Gameplay.Example
+namespace Thinh.Base.Gameplay.Example
 {
     public class DemoAutoStartGame : MonoBehaviour
     {

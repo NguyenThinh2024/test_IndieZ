@@ -4,15 +4,15 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Nexzap.Base.Editor
+namespace Thinh.Base.Editor
 {
     public static class TemplatePackageExporter
     {
         private const string PackageRoot = "Assets/_SDK";
         private const string ExportDirectoryName = "Exports";
-        private const string PackageFileName = "NexzapTemplate.unitypackage";
-        private const string FullPackageFileName = "NexzapTemplateFull.unitypackage";
-        private const string PuzzleGamePackageFileName = "NexzapTemplatePuzzleGame.unitypackage";
+        private const string PackageFileName = "ThinhTemplate.unitypackage";
+        private const string FullPackageFileName = "ThinhTemplateFull.unitypackage";
+        private const string PuzzleGamePackageFileName = "ThinhTemplatePuzzleGame.unitypackage";
 
         private static readonly string[] FullPackageRoots =
         {
@@ -41,19 +41,19 @@ namespace Nexzap.Base.Editor
             "ProjectSettings/ProjectVersion.txt"
         };
 
-        [MenuItem("Tools/Nexzap Template/Export Package")]
+        [MenuItem("Tools/Thinh Template/Export Package")]
         public static void ExportPackage()
         {
             ExportPaths(new[] { PackageRoot }, PackageFileName);
         }
 
-        [MenuItem("Tools/Nexzap Template/Export Full Package")]
+        [MenuItem("Tools/Thinh Template/Export Full Package")]
         public static void ExportFullPackage()
         {
             ExportPackageWithDependencies(FullPackageRoots, FullPackageFileName);
         }
 
-        [MenuItem("Tools/Nexzap Template/Export Puzzle Game Package")]
+        [MenuItem("Tools/Thinh Template/Export Puzzle Game Package")]
         public static void ExportPuzzleGamePackage()
         {
             ExportPackageWithDependencies(PuzzleGamePackageRoots, PuzzleGamePackageFileName);

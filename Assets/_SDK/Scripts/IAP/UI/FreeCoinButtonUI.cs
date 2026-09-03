@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Nexzap.Base.UI;
-using Nexzap.Base.Ads;
-using Nexzap.Base.Analytics;
+using Thinh.Base.UI;
+using Thinh.Base.Ads;
+using Thinh.Base.Analytics;
 using Cysharp.Threading.Tasks;
-using Nexzap.Base;
-using Nexzap.Base.RemoteConfigs;
+using Thinh.Base;
+using Thinh.Base.RemoteConfigs;
 
 public class FreeCoinButtonUI : MonoBehaviour
 {

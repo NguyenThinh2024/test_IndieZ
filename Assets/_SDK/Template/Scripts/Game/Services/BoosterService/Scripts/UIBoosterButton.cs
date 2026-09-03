@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Nexzap.Base.UI;
-using Nexzap.Base.Gameplay;
-using Nexzap.Base.Data;
+using Thinh.Base.UI;
+using Thinh.Base.Gameplay;
+using Thinh.Base.Data;
 
 public class UIBoosterButton : MonoBehaviour
 {

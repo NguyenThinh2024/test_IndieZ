@@ -1,4 +1,4 @@
-using Nexzap.Base.Gameplay;
+using Thinh.Base.Gameplay;
 using UnityEngine;
 
 /// <summary>

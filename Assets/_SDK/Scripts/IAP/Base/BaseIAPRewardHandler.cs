@@ -1,7 +1,7 @@
 #if IAP
 using UnityEngine;
 
-namespace Nexzap.Base.IAP
+namespace Thinh.Base.IAP
 {
     /// <summary>
     /// Base class cho mọi reward handler – tự đăng ký với IAPController.

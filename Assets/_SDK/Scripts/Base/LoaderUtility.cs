@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public class LoaderUtility : MonoSingleton<LoaderUtility>
     {

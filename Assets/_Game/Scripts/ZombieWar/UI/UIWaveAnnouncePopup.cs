@@ -1,6 +1,6 @@
 using DG.Tweening;
-using Nexzap.Base;
-using Nexzap.Base.UI;
+using Thinh.Base;
+using Thinh.Base.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

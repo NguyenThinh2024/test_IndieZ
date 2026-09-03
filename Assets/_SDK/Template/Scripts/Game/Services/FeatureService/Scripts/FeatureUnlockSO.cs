@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public enum FeatureType
     {
@@ -28,7 +28,7 @@ namespace Nexzap.Base.Gameplay
         [TextArea] public string featureDsc = "Describe the feature here...";
     }
 
-    [CreateAssetMenu(menuName = "Nexzap/Feature/Feature Unlock", fileName = "FeatureUnlockSO")]
+    [CreateAssetMenu(menuName = "Thinh/Feature/Feature Unlock", fileName = "FeatureUnlockSO")]
     public class FeatureUnlockSO : ScriptableObject
     {
         public List<FeatureUnlockConfig> config = new();

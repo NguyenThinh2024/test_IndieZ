@@ -1,6 +1,6 @@
 using UnityEngine.Events;
 
-namespace Nexzap.Base
+namespace Thinh.Base
 {
     public sealed class GameManager : MonoSingleton<GameManager>
     {

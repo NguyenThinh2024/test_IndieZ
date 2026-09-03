@@ -1,9 +1,9 @@
 using System;
-using Nexzap.Base.Data;
-using Nexzap.Template;
+using Thinh.Base.Data;
+using Thinh.Template;
 using UnityEngine;
 
-namespace Nexzap.Base.Gameplay
+namespace Thinh.Base.Gameplay
 {
     public sealed class TimerService : GameplayServiceBehaviour
     {

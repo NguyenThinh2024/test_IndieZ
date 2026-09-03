@@ -4,7 +4,7 @@
     "spawnCount": 10,
     "character": {
         "prefabAddress": "ZombieWar/Enemy/Zombie",
-        "skinMaterialAddress": "ZombieWar/Enemy/Skins/Base"
+        "skinMaterialAddress": "ZombieWar/Enemy/Skins/MaskMap"
     },
     "stats": {
         "maxHealth": 35.0,

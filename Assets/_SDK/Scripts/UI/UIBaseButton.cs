@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Nexzap.Base.UI
+namespace Thinh.Base.UI
 {
     [RequireComponent(typeof(Button))]
     public class UIBaseButton : MonoBehaviour,
