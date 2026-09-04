@@ -17,7 +17,6 @@ Project sử dụng **Addressables** để quản lý map và gameplay assets, *
 | Tween / Animation | DOTween                       |
 | Asset Management  | Addressables                  |
 | Input             | Joystick Pack                 |
-| SDK               | Nexzap SDK                    |
 
 ## Project Structure
 
